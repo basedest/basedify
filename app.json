@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HelloWorld",
-    "slug": "expo-template-default",
+    "name": "Basedify",
+    "slug": "basedify",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,13 +13,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.basedest.basedify"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.basedest.basedify"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +33,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "df2d35c4-59c7-4685-82f7-2bc2f8c6cdac"
+      }
+    },
+    "owner": "basedest",
+    "updates": {
+      "url": "https://u.expo.dev/df2d35c4-59c7-4685-82f7-2bc2f8c6cdac"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }

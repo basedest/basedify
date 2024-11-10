@@ -38,4 +38,7 @@ expo-env.d.ts
 app-example
 
 # secret organisation materials
-PLAN.md
+PLAN*.md
+
+# data
+app.db*

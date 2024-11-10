@@ -1,14 +1,12 @@
-import { db } from "@/db-module";
-import { Text, View } from "react-native";
-
+import { db } from '@/db-module';
+import { Text, View } from 'react-native';
 
 export default function Index() {
+    const taskOptions = db.taskOption.useFindMany();
 
-  const taskOptions= db.taskOption.useFindMany();
-
-  return (
-    <View className="flex-1 justify-center items-center">
-      <Text>Task Options: {JSON.stringify(taskOptions)}</Text>
-    </View>
-  );
+    return (
+        <View className="flex-1 justify-center items-center">
+            <Text>Task Options: {JSON.stringify(taskOptions)}</Text>
+        </View>
+    );
 }

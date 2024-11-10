@@ -65,9 +65,5 @@
     "react-test-renderer": "18.2.0",
     "tsx": "^4.19.2",
     "typescript": "~5.3.3"
-  },
-  "prisma": {
-    "schema": "prisma/schema.prisma",
-    "seed": "tsx prisma/seed.ts"
   }
 }

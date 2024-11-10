@@ -1,4 +1,4 @@
-import { initializeDb } from "@/src/db/db-module";
+import { initializeDb } from "@/db-module";
 
 export async function startupFunction() {
   await initializeDb();

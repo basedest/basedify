@@ -51,6 +51,8 @@ async function main() {
     }
   ];
 
+  await prisma.taskOption.deleteMany();
+
   for (const taskOption of taskOptions) {
     await prisma.taskOption.create({
       data: taskOption

@@ -1,6 +1,9 @@
 import { Task } from '@prisma/client';
 
-export type TaskConfiguration = Omit<Task, 'id' | 'programId' | 'bestStreak'>;
+export type TaskConfiguration = Omit<
+    Task,
+    'id' | 'programId' | 'bestStreak' | 'currentStreak'
+>;
 
 export type SurveyStore = {
     goodHabits: number[];

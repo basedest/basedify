@@ -3,5 +3,5 @@ export const enum GoalType {
     Do = 'do',
     Duration = 'duration',
     Dont = 'dont',
-    Measurable = 'measurable'
-    }
+    Measurable = 'measurable',
+}

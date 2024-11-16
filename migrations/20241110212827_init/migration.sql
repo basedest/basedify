@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE IF NOT EXISTS "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -7,7 +7,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Program" (
+CREATE TABLE IF NOT EXISTS "Program" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "startDate" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" INTEGER NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "Program" (
 );
 
 -- CreateTable
-CREATE TABLE "TaskOption" (
+CREATE TABLE IF NOT EXISTS "TaskOption" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "goalType" TEXT NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE "TaskOption" (
 );
 
 -- CreateTable
-CREATE TABLE "Task" (
+CREATE TABLE IF NOT EXISTS "Task" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "goal" REAL,
     "initialGoal" REAL,
@@ -42,7 +42,7 @@ CREATE TABLE "Task" (
 );
 
 -- CreateTable
-CREATE TABLE "TaskProgress" (
+CREATE TABLE IF NOT EXISTS "TaskProgress" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "date" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "status" TEXT NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE "TaskProgress" (
 );
 
 -- CreateTable
-CREATE TABLE "Achievement" (
+CREATE TABLE IF NOT EXISTS "Achievement" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "icon" TEXT NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE "Achievement" (
 );
 
 -- CreateTable
-CREATE TABLE "Settings" (
+CREATE TABLE IF NOT EXISTS "Settings" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "notifications" BOOLEAN NOT NULL DEFAULT true,
     "userId" INTEGER NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE "Settings" (
 );
 
 -- CreateTable
-CREATE TABLE "Survey" (
+CREATE TABLE IF NOT EXISTS "Survey" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "isCompleted" BOOLEAN NOT NULL DEFAULT false,
     "userId" INTEGER NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE "Survey" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Settings_userId_key" ON "Settings"("userId");
+CREATE UNIQUE INDEX IF NOT EXISTS "Settings_userId_key" ON "Settings"("userId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Survey_userId_key" ON "Survey"("userId");
+CREATE UNIQUE INDEX IF NOT EXISTS "Survey_userId_key" ON "Survey"("userId");

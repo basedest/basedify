@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "Basedify.app"
-               BlueprintName = "Basedify"
-               ReferencedContainer = "container:Basedify.xcodeproj">
+               BuildableName = "basedify.app"
+               BlueprintName = "basedify"
+               ReferencedContainer = "container:basedify.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "BasedifyTests.xctest"
-               BlueprintName = "BasedifyTests"
-               ReferencedContainer = "container:Basedify.xcodeproj">
+               BuildableName = "basedifyTests.xctest"
+               BlueprintName = "basedifyTests"
+               ReferencedContainer = "container:basedify.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Basedify.app"
-            BlueprintName = "Basedify"
-            ReferencedContainer = "container:Basedify.xcodeproj">
+            BuildableName = "basedify.app"
+            BlueprintName = "basedify"
+            ReferencedContainer = "container:basedify.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Basedify.app"
-            BlueprintName = "Basedify"
-            ReferencedContainer = "container:Basedify.xcodeproj">
+            BuildableName = "basedify.app"
+            BlueprintName = "basedify"
+            ReferencedContainer = "container:basedify.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

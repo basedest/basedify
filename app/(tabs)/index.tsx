@@ -1,12 +1,22 @@
-import { db } from '@/db-module';
-import { Text, View } from 'react-native';
+import { Stack } from 'expo-router';
+import { StyleSheet, View } from 'react-native';
+
+import { ScreenContent } from '~/components/ScreenContent';
 
 export default function Home() {
-    const taskOptions = db.taskOption.useFindMany();
-
-    return (
-        <View className="flex-1 justify-center items-center">
-            <Text>Task Options: {JSON.stringify(taskOptions)}</Text>
-        </View>
-    );
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Tab One' }} />
+      <View style={styles.container}>
+        <ScreenContent path="app/(tabs)/index.tsx" title="Tab One" />
+      </View>
+    </>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+  },
+});

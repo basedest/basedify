@@ -37,6 +37,7 @@ model TaskOption {
     name        String
     goalType    String    // "do", "dont", "measurable", "time", "duration"
     defaultDays Int       @default(7) // every day by default
+    measureUnit String?   // "km", "min", "hour" "times"
     defaultGoal Float?    // For measurable tasks
     description String?
     category    String?   // For task categorization
@@ -91,11 +92,3 @@ model Survey {
   user              User     @relation(fields: [userId], references: [id])
   userId            Int      @unique
 }
-
-// enum GoalType {
-//     DO
-//     DONT
-//     MEASURABLE
-//     TIME
-//     DURATION
-// }

@@ -1,29 +1,33 @@
 import { Stack } from 'expo-router';
 import { View } from 'react-native';
+import { t } from '~/utils/i18n';
 
 export default function SurveyLayout() {
     return (
         <View style={{ flex: 1 }}>
             <Stack>
-                <Stack.Screen name="index" options={{ title: 'Basedify' }} />
                 <Stack.Screen
                     name="good-habits"
                     options={{
-                        title: 'Good Habits',
+                        title: t('goodHabits', 'Good Habits'),
                         headerBackVisible: false,
                     }}
                 />
                 <Stack.Screen
                     name="bad-habits"
-                    options={{ title: 'Bad Habits' }}
+                    options={{ title: t('badHabits', 'Bad Habits') }}
                 />
                 <Stack.Screen
                     name="customize"
-                    options={{ title: 'Customize Program' }}
+                    options={{
+                        title: t('customizeProgram', 'Customize Program'),
+                    }}
                 />
                 <Stack.Screen
                     name="overview"
-                    options={{ title: 'Program Overview' }}
+                    options={{
+                        title: t('programOverview', 'Program Overview'),
+                    }}
                 />
             </Stack>
         </View>

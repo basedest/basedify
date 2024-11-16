@@ -1,32 +1,33 @@
-import { Tabs } from 'expo-router';
+import { Link, Tabs } from 'expo-router';
 
-export default function TabsLayout() {
-    return (
-        <Tabs>
-            <Tabs.Screen
-                name="index"
-                options={{
-                    title: 'Home',
-                }}
-            />
-            <Tabs.Screen
-                name="program"
-                options={{
-                    title: 'Program',
-                }}
-            />
-            <Tabs.Screen
-                name="progress"
-                options={{
-                    title: 'Progress',
-                }}
-            />
-            <Tabs.Screen
-                name="settings"
-                options={{
-                    title: 'Settings',
-                }}
-            />
-        </Tabs>
-    );
+import { HeaderButton } from '../../components/HeaderButton';
+import { TabBarIcon } from '../../components/TabBarIcon';
+
+export default function TabLayout() {
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: 'black',
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Tab One',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <HeaderButton />
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="two"
+        options={{
+          title: 'Tab Two',
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+    </Tabs>
+  );
 }

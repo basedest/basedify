@@ -1,6 +1,6 @@
-import '@prisma/react-native';
 import { PrismaClient } from '@prisma/client/react-native';
 import { reactiveHooksExtension } from '@prisma/react-native';
+import { MeasureUnit } from './types/measureUnit';
 
 const baseClient = new PrismaClient({
     log: [
@@ -19,6 +19,7 @@ const defaultTaskOptions = [
         defaultGoal: 420, // 7:00 AM
         description: 'Start your day early to boost productivity',
         category: 'lifestyle',
+        measureUnit: MeasureUnit.Minutes,
     },
     {
         name: 'Hit the gym',
@@ -34,6 +35,7 @@ const defaultTaskOptions = [
         defaultGoal: 60, // 60 minutes per day
         description: 'Reduce time spent on social media',
         category: 'digital wellness',
+        measureUnit: MeasureUnit.Minutes,
     },
     {
         name: 'Quit smoking',
@@ -49,6 +51,7 @@ const defaultTaskOptions = [
         defaultGoal: 2.0, // 2 liters per day
         description: 'Stay hydrated throughout the day',
         category: 'health',
+        measureUnit: MeasureUnit.Liters,
     },
     {
         name: 'Take cold shower',
@@ -80,6 +83,8 @@ export async function initializeDb() {
                 data: defaultUser,
             });
         }
+
+        console.debug('after seeding');
     } catch (e) {
         console.error(`failed to apply migrations: ${e}`);
         throw new Error(

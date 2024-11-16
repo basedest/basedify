@@ -1,14 +1,44 @@
-import { Box } from '@/src/components/ui/box';
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { useRouter } from 'expo-router';
+import { useGoodHabits } from '~/entities/task/task.hooks';
+import { useSurveyStore } from '~/entities/survey';
+import { SurveyLayout } from '~/components/survey/SurveyLayout';
+import { HabitCard } from '~/components/survey/HabitCard';
 
 export default function GoodHabits() {
+    const { goodHabits: chosenGoodHabits, setGoodHabits } = useSurveyStore();
+    const [selectedHabits, setSelectedHabits] =
+        useState<number[]>(chosenGoodHabits);
+    const router = useRouter();
+    const goodHabits = useGoodHabits();
+
+    const toggleHabit = (id: number) => {
+        setSelectedHabits((prev) =>
+            prev.includes(id)
+                ? prev.filter((habitId) => habitId !== id)
+                : [...prev, id],
+        );
+    };
+
+    const handleNextStep = () => {
+        setGoodHabits(selectedHabits);
+        router.push('/survey/bad-habits');
+    };
+
     return (
-        <View className="flex-1 justify-center items-center">
-            <Box className="bg-primary-500 p-5">
-                <Text className="text-typography-0">This is the Box</Text>
-            </Box>
-            <Text className="text-base text-red-500">Good Habits Screen</Text>
-        </View>
+        <SurveyLayout
+            title="Step 1. Choose the good habits you want to acquire"
+            onNext={handleNextStep}
+        >
+            {goodHabits.map((habit) => (
+                <HabitCard
+                    key={habit.id}
+                    title={habit.name}
+                    description={habit.description!}
+                    isSelected={selectedHabits.includes(habit.id)}
+                    onPress={() => toggleHabit(habit.id)}
+                />
+            ))}
+        </SurveyLayout>
     );
 }

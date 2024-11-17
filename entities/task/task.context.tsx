@@ -4,7 +4,7 @@ import { TaskExtended } from './task.type';
 import { GoalType } from '../../types/goal.type';
 import { useCurrentUser } from '../user/user.hook';
 
-import { db } from '@/db-module';
+import { db } from '~/db-module';
 
 type TasksContextType = {
     tasks: TaskExtended[];

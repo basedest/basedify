@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TextInput } from 'react-native';
-import { Button, ButtonText } from '~/components/ui/button';
+import { View, ScrollView, TextInput } from 'react-native';
+import { Button } from '~/components/ui/button';
+import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle-group';
 import { db } from '~/db-module';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
 import { GoalType } from '~/types/goal.type';
+import { Text } from '~/components/ui/text';
+
 export default function Customize() {
     const { goodHabits, badHabits } = useSurveyStore();
     const taskOptions = db.taskOption.useFindMany({
@@ -53,14 +56,12 @@ export default function Customize() {
     };
 
     return (
-        <ScrollView style={{ flex: 1, padding: 16 }}>
+        <ScrollView className="flex-1 p-4">
             {taskOptions?.map((option, index) => {
                 if (!option || !tasks[index]) return null;
                 return (
-                    <View key={option.id} style={{ marginBottom: 24 }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
-                            {option.name}
-                        </Text>
+                    <View key={option.id} className="mb-6">
+                        <Text className="text-lg font-bold">{option.name}</Text>
 
                         <TextInput
                             placeholder={getInputLabel(
@@ -76,6 +77,7 @@ export default function Customize() {
                                 setTasks(newTasks);
                             }}
                             keyboardType="numeric"
+                            className="mt-2 rounded border border-gray-300 p-2"
                         />
 
                         <TextInput
@@ -89,6 +91,7 @@ export default function Customize() {
                                 setTasks(newTasks);
                             }}
                             keyboardType="numeric"
+                            className="mt-2 rounded border border-gray-300 p-2"
                         />
 
                         <WeekdayPicker
@@ -106,13 +109,8 @@ export default function Customize() {
                 );
             })}
 
-            <Button
-                size="lg"
-                variant="solid"
-                action="primary"
-                onPress={handleSubmit}
-            >
-                <ButtonText>Save and Continue</ButtonText>
+            <Button size="lg" variant="default" onPress={handleSubmit}>
+                <Text>Save and Continue</Text>
             </Button>
         </ScrollView>
     );
@@ -153,33 +151,23 @@ function WeekdayPicker({ value, onChange }: WeekdayPickerProps) {
         { label: 'Sat', value: 6 },
     ];
 
-    const toggleDay = (dayValue: number) => {
-        const newValue = value.includes(dayValue)
-            ? value.filter((v) => v !== dayValue)
-            : [...value, dayValue];
-        onChange(newValue);
+    const onToggleDay = (selectedDays: string[]) => {
+        onChange(selectedDays.map(Number));
     };
 
     return (
-        <View
-            style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                gap: 8,
-                marginTop: 8,
-            }}
-        >
-            {days.map((day) => (
-                <Button
-                    key={day.value}
-                    onPress={() => toggleDay(day.value)}
-                    variant={value.includes(day.value) ? 'solid' : 'outline'}
-                    action="primary"
-                    size="sm"
-                >
-                    <ButtonText>{day.label}</ButtonText>
-                </Button>
-            ))}
+        <View className="flex-1 items-center justify-center gap-12 p-6">
+            <ToggleGroup
+                value={value.map(String)}
+                onValueChange={onToggleDay}
+                type="multiple"
+            >
+                {days.map((day) => (
+                    <ToggleGroupItem key={day.value} value={String(day.value)}>
+                        <Text>{day.label}</Text>
+                    </ToggleGroupItem>
+                ))}
+            </ToggleGroup>
         </View>
     );
 }

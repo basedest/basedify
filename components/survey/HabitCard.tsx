@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
+import { cn } from '~/lib/utils';
 
 type HabitCardProps = {
     title: string;
@@ -18,11 +19,25 @@ export function HabitCard({
         <TouchableOpacity
             onPress={onPress}
             className={`mb-3 rounded-lg border p-4 ${
-                isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                isSelected ? 'border-gray-900' : 'border-gray-200'
             }`}
         >
-            <Text className="text-lg font-semibold">{title}</Text>
-            <Text className="mt-1 text-gray-600">{description}</Text>
+            <Text
+                className={cn(
+                    'text-lg font-semibold',
+                    isSelected ? 'text-black' : 'text-gray-800',
+                )}
+            >
+                {title}
+            </Text>
+            <Text
+                className={cn(
+                    'mt-1',
+                    isSelected ? 'text-gray-600' : 'text-gray-400',
+                )}
+            >
+                {description}
+            </Text>
         </TouchableOpacity>
     );
 }

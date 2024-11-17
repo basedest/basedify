@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, TextInput } from 'react-native';
-import { Button } from '~/components/ui/button';
-import { ToggleGroup, ToggleGroupItem } from '~/components/ui/toggle-group';
+import { View } from 'react-native';
 import { db } from '~/db-module';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
 import { GoalType } from '~/types/goal.type';
 import { Text } from '~/components/ui/text';
+import { WeekdayPicker } from '~/components/weekday-picker';
+import { Input } from '~/components/ui/input';
+import { SurveyLayout } from '~/components/survey/SurveyLayout';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { TimePicker } from '~/components/time-picker';
 
 export default function Customize() {
     const { goodHabits, badHabits } = useSurveyStore();
@@ -56,14 +59,18 @@ export default function Customize() {
     };
 
     return (
-        <ScrollView className="flex-1 p-4">
+        <SurveyLayout
+            title="Step 3. Customize your program"
+            onNext={handleSubmit}
+            nextButtonText="Save and Continue"
+        >
             {taskOptions?.map((option, index) => {
                 if (!option || !tasks[index]) return null;
                 return (
                     <View key={option.id} className="mb-6">
-                        <Text className="text-lg font-bold">{option.name}</Text>
+                        <Text className="text-xl font-bold">{option.name}</Text>
 
-                        <TextInput
+                        <Input
                             placeholder={getInputLabel(
                                 option.goalType as GoalType,
                                 option.measureUnit ?? undefined,
@@ -76,11 +83,12 @@ export default function Customize() {
                                     : null;
                                 setTasks(newTasks);
                             }}
-                            keyboardType="numeric"
                             className="mt-2 rounded border border-gray-300 p-2"
                         />
 
-                        <TextInput
+                        <TimePicker />
+
+                        <Input
                             placeholder={`Current ${getInputLabel(option.goalType as GoalType, option.measureUnit)}`}
                             value={tasks[index]?.initialGoal?.toString()}
                             onChangeText={(value) => {
@@ -90,11 +98,11 @@ export default function Customize() {
                                     : null;
                                 setTasks(newTasks);
                             }}
-                            keyboardType="numeric"
                             className="mt-2 rounded border border-gray-300 p-2"
                         />
 
                         <WeekdayPicker
+                            className="-mx-2 justify-between"
                             value={parseCronToWeekdays(
                                 tasks[index].repeatSchedule,
                             )}
@@ -108,11 +116,7 @@ export default function Customize() {
                     </View>
                 );
             })}
-
-            <Button size="lg" variant="default" onPress={handleSubmit}>
-                <Text>Save and Continue</Text>
-            </Button>
-        </ScrollView>
+        </SurveyLayout>
     );
 }
 
@@ -133,41 +137,4 @@ function generateCronFromWeekdays(days: number[]): string {
 function parseCronToWeekdays(cron: string): number[] {
     const parts = cron.split(' ');
     return parts[4].split(',').map(Number);
-}
-
-interface WeekdayPickerProps {
-    value: number[];
-    onChange: (days: number[]) => void;
-}
-
-function WeekdayPicker({ value, onChange }: WeekdayPickerProps) {
-    const days = [
-        { label: 'Sun', value: 0 },
-        { label: 'Mon', value: 1 },
-        { label: 'Tue', value: 2 },
-        { label: 'Wed', value: 3 },
-        { label: 'Thu', value: 4 },
-        { label: 'Fri', value: 5 },
-        { label: 'Sat', value: 6 },
-    ];
-
-    const onToggleDay = (selectedDays: string[]) => {
-        onChange(selectedDays.map(Number));
-    };
-
-    return (
-        <View className="flex-1 items-center justify-center gap-12 p-6">
-            <ToggleGroup
-                value={value.map(String)}
-                onValueChange={onToggleDay}
-                type="multiple"
-            >
-                {days.map((day) => (
-                    <ToggleGroupItem key={day.value} value={String(day.value)}>
-                        <Text>{day.label}</Text>
-                    </ToggleGroupItem>
-                ))}
-            </ToggleGroup>
-        </View>
-    );
 }

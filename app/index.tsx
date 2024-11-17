@@ -1,5 +1,8 @@
 import { Link } from 'expo-router';
-import { View, Text, SafeAreaView } from 'react-native';
+import React from 'react';
+import { View, SafeAreaView } from 'react-native';
+import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
 
 export default function WelcomeScreen() {
     return (
@@ -14,9 +17,9 @@ export default function WelcomeScreen() {
                     Lao Tzu
                 </Text>
                 <Link href={{ pathname: '/survey/good-habits' }} asChild>
-                    <Text className="rounded-lg bg-blue-500 px-8 py-4 text-lg font-bold text-white">
-                        Start
-                    </Text>
+                    <Button size="lg">
+                        <Text>Get started</Text>
+                    </Button>
                 </Link>
             </View>
         </SafeAreaView>

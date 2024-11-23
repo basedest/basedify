@@ -10,4 +10,10 @@ export const useSurveyStore = create<SurveyStore>()((set) => ({
 
     taskConfigurations: [],
     setTaskConfigurations: (taskConfigurations) => set({ taskConfigurations }),
+
+    initialGoal: null,
+    setInitialGoal: (initialGoal) => set({ initialGoal }),
+
+    goal: null,
+    setGoal: (goal) => set({ goal }),
 }));

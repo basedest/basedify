@@ -34,6 +34,7 @@ model Program {
 // relations: many tasks -> one taskOption and one program
 model TaskOption {
     id          Int       @id @default(autoincrement())
+    key         String?   @unique // default task options have keys which help to identify them and customize better
     name        String
     goalType    String    // "do", "dont", "measurable", "time", "duration"
     defaultDays Int       @default(7) // every day by default

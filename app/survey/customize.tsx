@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
 import { db } from '~/db-module';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
 import { GoalType } from '~/types/goal.type';
-import { Text } from '~/components/ui/text';
-import { WeekdayPicker } from '~/components/weekday-picker';
-import { Input } from '~/components/ui/input';
 import { SurveyLayout } from '~/components/survey/SurveyLayout';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { TimePicker } from '~/components/time-picker';
+import { CustomizeTask } from '~/components/survey/customize-task';
 
 export default function Customize() {
-    const { goodHabits, badHabits } = useSurveyStore();
+    const { goodHabits, badHabits, initialGoal, goal } = useSurveyStore();
     const taskOptions = db.taskOption.useFindMany({
         where: { id: { in: [...goodHabits, ...badHabits] } },
     });
@@ -19,6 +14,7 @@ export default function Customize() {
     const [tasks, setTasks] = useState<TaskConfiguration[]>(() =>
         taskOptions?.map((option) => ({
             taskOptionId: option.id,
+            taskOption: option,
             goal: null,
             initialGoal: null,
             initialDays: option.goalType === GoalType.Do ? 0 : 7,
@@ -26,11 +22,14 @@ export default function Customize() {
         })),
     );
 
+    const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
+
     useEffect(() => {
         setTasks(
             taskOptions?.map((option) => ({
+                taskOption: option,
                 taskOptionId: option.id,
-                goal: null,
+                goal: option.defaultGoal,
                 initialGoal: null,
                 initialDays: option.goalType === GoalType.Do ? 0 : 7,
                 repeatSchedule: generateDefaultSchedule(option.defaultDays),
@@ -38,84 +37,55 @@ export default function Customize() {
         );
     }, [taskOptions]);
 
-    const getInputLabel = (goalType: GoalType, measureUnit?: string | null) => {
-        switch (goalType) {
-            case GoalType.Time:
-                return 'Target time (HH:MM)';
-            case GoalType.Duration:
-                return `Duration (${measureUnit || 'minutes'})`;
-            case GoalType.Do:
-                return 'Times per day';
-            case GoalType.Dont:
-                return 'Maximum allowed';
-            case GoalType.Measurable:
-                return `Amount (${measureUnit || 'units'})`;
-        }
-    };
+    const handleNext = async () => {
+        if (currentTaskIndex < tasks.length - 1) {
+            setTasks((prev) =>
+                prev.map((task, index) =>
+                    index === currentTaskIndex
+                        ? { ...task, initialGoal, goal }
+                        : task,
+                ),
+            );
 
-    const handleSubmit = async () => {
-        // TODO: Save tasks to database
+            setCurrentTaskIndex((prev) => prev + 1);
+            return;
+        }
+
+        // Save tasks
         console.log(tasks);
     };
+
+    // const setInitialValue = (value: number) => {
+    //     setTasks((prev) =>
+    //         prev.map((task, index) =>
+    //             index === currentTaskIndex
+    //                 ? { ...task, initialGoal: value }
+    //                 : task,
+    //         ),
+    //     );
+    // };
+
+    // const setGoalValue = (value: number) => {
+    //     setTasks((prev) =>
+    //         prev.map((task, index) =>
+    //             index === currentTaskIndex ? { ...task, goal: value } : task,
+    //         ),
+    //     );
+    // };
 
     return (
         <SurveyLayout
             title="Step 3. Customize your program"
-            onNext={handleSubmit}
-            nextButtonText="Save and Continue"
+            onNext={handleNext}
+            nextButtonText="Continue"
         >
-            {taskOptions?.map((option, index) => {
-                if (!option || !tasks[index]) return null;
-                return (
-                    <View key={option.id} className="mb-6">
-                        <Text className="text-xl font-bold">{option.name}</Text>
-
-                        <Input
-                            placeholder={getInputLabel(
-                                option.goalType as GoalType,
-                                option.measureUnit ?? undefined,
-                            )}
-                            value={(tasks[index]?.goal || '').toString()}
-                            onChangeText={(value) => {
-                                const newTasks = [...tasks];
-                                newTasks[index].goal = value
-                                    ? Number(value)
-                                    : null;
-                                setTasks(newTasks);
-                            }}
-                            className="mt-2 rounded border border-gray-300 p-2"
-                        />
-
-                        <TimePicker />
-
-                        <Input
-                            placeholder={`Current ${getInputLabel(option.goalType as GoalType, option.measureUnit)}`}
-                            value={tasks[index]?.initialGoal?.toString()}
-                            onChangeText={(value) => {
-                                const newTasks = [...tasks];
-                                newTasks[index].initialGoal = value
-                                    ? Number(value)
-                                    : null;
-                                setTasks(newTasks);
-                            }}
-                            className="mt-2 rounded border border-gray-300 p-2"
-                        />
-
-                        <WeekdayPicker
-                            className="-mx-2 justify-between"
-                            value={parseCronToWeekdays(
-                                tasks[index].repeatSchedule,
-                            )}
-                            onChange={(days) => {
-                                const newTasks = [...tasks];
-                                newTasks[index].repeatSchedule =
-                                    generateCronFromWeekdays(days);
-                                setTasks(newTasks);
-                            }}
-                        />
-                    </View>
-                );
-            })}
+            {tasks[currentTaskIndex] && (
+                <CustomizeTask
+                    taskConfig={tasks[currentTaskIndex]}
+                    currentTaskIndex={currentTaskIndex}
+                    totalTasks={tasks.length}
+                />
+            )}
         </SurveyLayout>
     );
 }

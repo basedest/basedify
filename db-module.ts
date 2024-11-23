@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client/react-native';
 import { reactiveHooksExtension } from '@prisma/react-native';
-import { MeasureUnit } from './types/measureUnit';
+import { MeasureUnit } from './types/measure-unit.type';
+import { TaskKey } from './types/task-key.type';
+import { GoalType } from './types/goal.type';
 
 const baseClient = new PrismaClient({
     log: [
@@ -13,8 +15,9 @@ const baseClient = new PrismaClient({
 
 const defaultTaskOptions = [
     {
+        key: TaskKey.WakeUp,
         name: 'Wake up early',
-        goalType: 'time',
+        goalType: GoalType.Time,
         defaultDays: 7,
         defaultGoal: 420, // 7:00 AM
         description: 'Start your day early to boost productivity',
@@ -22,15 +25,19 @@ const defaultTaskOptions = [
         measureUnit: MeasureUnit.Minutes,
     },
     {
+        key: TaskKey.Gym,
         name: 'Hit the gym',
-        goalType: 'do',
+        goalType: GoalType.Duration,
         defaultDays: 3,
+        defaultGoal: 90, // 90 minutes per session
         description: 'Regular exercise for better health',
         category: 'fitness',
+        measureUnit: MeasureUnit.Minutes,
     },
     {
+        key: TaskKey.LimitSocialMedia,
         name: 'Limit social media',
-        goalType: 'duration',
+        goalType: GoalType.Duration,
         defaultDays: 7,
         defaultGoal: 60, // 60 minutes per day
         description: 'Reduce time spent on social media',
@@ -38,15 +45,17 @@ const defaultTaskOptions = [
         measureUnit: MeasureUnit.Minutes,
     },
     {
+        key: TaskKey.QuitSmoking,
         name: 'Quit smoking',
-        goalType: 'dont',
+        goalType: GoalType.Dont,
         defaultDays: 7,
         description: 'Stop smoking for better health',
         category: 'health',
     },
     {
+        key: TaskKey.DrinkWater,
         name: 'Drink water',
-        goalType: 'measurable',
+        goalType: GoalType.Measurable,
         defaultDays: 7,
         defaultGoal: 2.0, // 2 liters per day
         description: 'Stay hydrated throughout the day',
@@ -54,8 +63,9 @@ const defaultTaskOptions = [
         measureUnit: MeasureUnit.Liters,
     },
     {
+        key: TaskKey.ColdShower,
         name: 'Take cold shower',
-        goalType: 'do',
+        goalType: GoalType.Do,
         defaultDays: 5,
         description: 'Build mental strength with cold exposure',
         category: 'lifestyle',

@@ -22,4 +22,7 @@ export type SurveyStore = {
 
     goal: number | null;
     setGoal: (goal: number | null) => void;
+
+    days: number[];
+    setDays: (days: number[]) => void;
 };

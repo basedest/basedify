@@ -7,7 +7,7 @@ import { Stack, SplashScreen } from 'expo-router';
 import { useUserContext } from '~/entities/user';
 import { useColorScheme } from '~/lib/use-color-scheme';
 import { useEffect, useState } from 'react';
-import { initializeDb } from '~/db-module';
+import { db, initializeDb } from '~/db-module';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeProvider } from '@react-navigation/native';
 import { DARK_THEME, LIGHT_THEME } from '~/lib/colors';
@@ -58,6 +58,7 @@ function RootLayout() {
     }, []);
 
     const { currentUser } = useUserContext();
+    const program = db.program.useFindFirst();
 
     if (!isColorSchemeLoaded) {
         return null;
@@ -70,7 +71,12 @@ function RootLayout() {
                 <Stack.Screen
                     name="(tabs)"
                     options={{ headerShown: false }}
-                    redirect={!currentUser?.survey?.isCompleted}
+                    redirect={!currentUser?.currentProgram}
+                />
+                <Stack.Screen
+                    name="index"
+                    redirect={Boolean(program)}
+                    options={{ headerShown: false }}
                 />
                 <Stack.Screen name="survey" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />

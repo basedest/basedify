@@ -16,7 +16,6 @@ model User {
   programs        Program[]
   achievements    Achievement[]
   settings        Settings?
-  survey          Survey?
 }
 
 model Program {
@@ -26,7 +25,8 @@ model Program {
   user        User      @relation(fields: [userId], references: [id])
   userId      Int
   tasks       Task[]
-  isActive    Boolean   @default(true)
+  isActive    Boolean   @default(false)
+  isCompleted Boolean   @default(false)
 }
 
 // Basic model for task. Not related to any program.
@@ -85,11 +85,4 @@ model Settings {
   notifications   Boolean @default(true)
   user            User    @relation(fields: [userId], references: [id])
   userId          Int     @unique
-}
-
-model Survey {
-  id                Int      @id @default(autoincrement())
-  isCompleted       Boolean  @default(false)
-  user              User     @relation(fields: [userId], references: [id])
-  userId            Int      @unique
 }

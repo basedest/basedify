@@ -16,4 +16,7 @@ export const useSurveyStore = create<SurveyStore>()((set) => ({
 
     goal: null,
     setGoal: (goal) => set({ goal }),
+
+    days: [],
+    setDays: (days) => set({ days }),
 }));

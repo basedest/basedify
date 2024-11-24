@@ -18,7 +18,7 @@ const defaultTaskOptions = [
         key: TaskKey.WakeUp,
         name: 'Wake up early',
         goalType: GoalType.Time,
-        defaultDays: 7,
+        defaultDays: 5,
         defaultGoal: 420, // 7:00 AM
         description: 'Start your day early to boost productivity',
         category: 'lifestyle',
@@ -39,7 +39,7 @@ const defaultTaskOptions = [
         name: 'Limit social media',
         goalType: GoalType.Duration,
         defaultDays: 7,
-        defaultGoal: 60, // 60 minutes per day
+        defaultGoal: 30, // 30 minutes per day
         description: 'Reduce time spent on social media',
         category: 'digital wellness',
         measureUnit: MeasureUnit.Minutes,

@@ -6,6 +6,7 @@ type SurveyLayoutProps = {
     title: string;
     children: React.ReactNode;
     onNext: () => void;
+    nextButtonDisabled?: boolean;
     nextButtonText?: string;
 };
 
@@ -14,6 +15,7 @@ export function SurveyLayout({
     children,
     onNext,
     nextButtonText = 'Continue',
+    nextButtonDisabled,
 }: SurveyLayoutProps) {
     return (
         <SafeAreaView className="flex-1 bg-white">
@@ -23,7 +25,7 @@ export function SurveyLayout({
             </View>
 
             <View className="border-t border-gray-200 p-4">
-                <Button onPress={onNext}>
+                <Button disabled={nextButtonDisabled} onPress={onNext}>
                     <Text className="text-center text-lg font-semibold text-white">
                         {nextButtonText}
                     </Text>

@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { db } from '~/db-module';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
 import { GoalType } from '~/types/goal.type';
 import { SurveyLayout } from '~/components/survey/SurveyLayout';
 import { CustomizeTask } from '~/components/survey/customize-task';
+import { useUserContext } from '~/entities/user';
+import { useRouter } from 'expo-router';
 
 export default function Customize() {
-    const { goodHabits, badHabits, initialGoal, goal } = useSurveyStore();
+    const { goodHabits, badHabits, initialGoal, goal, days } = useSurveyStore();
+    const { currentUser } = useUserContext();
+    const router = useRouter();
     const taskOptions = db.taskOption.useFindMany({
         where: { id: { in: [...goodHabits, ...badHabits] } },
     });
@@ -22,7 +26,14 @@ export default function Customize() {
         })),
     );
 
+    const configurableTasks = useMemo(
+        () => tasks.filter((task) => task.taskOption.measureUnit),
+        [tasks],
+    );
+
     const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
+
+    const isLastTask = currentTaskIndex === configurableTasks.length - 1;
 
     useEffect(() => {
         setTasks(
@@ -38,52 +49,60 @@ export default function Customize() {
     }, [taskOptions]);
 
     const handleNext = async () => {
-        if (currentTaskIndex < tasks.length - 1) {
-            setTasks((prev) =>
-                prev.map((task, index) =>
-                    index === currentTaskIndex
-                        ? { ...task, initialGoal, goal }
-                        : task,
-                ),
-            );
+        const currentTask = configurableTasks[currentTaskIndex];
+        setTasks((prev) =>
+            prev.map((task) =>
+                task.taskOptionId === currentTask.taskOptionId
+                    ? {
+                          ...currentTask,
+                          initialGoal,
+                          goal,
+                          repeatSchedule: generateCronFromWeekdays(days),
+                      }
+                    : task,
+            ),
+        );
 
+        if (!isLastTask) {
             setCurrentTaskIndex((prev) => prev + 1);
             return;
         }
 
         // Save tasks
-        console.log(tasks);
+        const program = await db.program.create({
+            data: {
+                tasks: {
+                    create: tasks.map((task) => ({
+                        taskOptionId: task.taskOptionId,
+                        goal: task.goal,
+                        repeatSchedule: task.repeatSchedule,
+                        initialGoal: task.initialGoal,
+                        initialDays: task.initialDays,
+                    })),
+                },
+                isActive: false,
+                userId: currentUser?.id ?? 1,
+            },
+        });
+
+        console.debug('Program created:', program);
+
+        // Redirect to next page
+        router.push('/survey/overview');
     };
-
-    // const setInitialValue = (value: number) => {
-    //     setTasks((prev) =>
-    //         prev.map((task, index) =>
-    //             index === currentTaskIndex
-    //                 ? { ...task, initialGoal: value }
-    //                 : task,
-    //         ),
-    //     );
-    // };
-
-    // const setGoalValue = (value: number) => {
-    //     setTasks((prev) =>
-    //         prev.map((task, index) =>
-    //             index === currentTaskIndex ? { ...task, goal: value } : task,
-    //         ),
-    //     );
-    // };
 
     return (
         <SurveyLayout
             title="Step 3. Customize your program"
             onNext={handleNext}
-            nextButtonText="Continue"
+            nextButtonText={isLastTask ? 'Finish' : 'Next'}
+            nextButtonDisabled={!goal || !days.length}
         >
-            {tasks[currentTaskIndex] && (
+            {configurableTasks[currentTaskIndex] && (
                 <CustomizeTask
-                    taskConfig={tasks[currentTaskIndex]}
+                    taskConfig={configurableTasks[currentTaskIndex]}
                     currentTaskIndex={currentTaskIndex}
-                    totalTasks={tasks.length}
+                    totalTasks={configurableTasks.length}
                 />
             )}
         </SurveyLayout>

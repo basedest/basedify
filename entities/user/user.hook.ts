@@ -6,7 +6,6 @@ export const useCurrentUser = () => {
             programs: true,
             achievements: true,
             settings: true,
-            survey: true,
         },
     });
 

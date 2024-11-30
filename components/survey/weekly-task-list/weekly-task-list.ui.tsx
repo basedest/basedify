@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useTasksContext } from '~/entities/task';
 import { getScheduleText } from './weekly-task-list.lib';
-import dayjs from 'dayjs';
+import { Text } from '~/components/ui/text';
 
 interface WeeklyTaskListProps {
     week: number;
@@ -23,9 +23,7 @@ export const WeeklyTaskList: React.FC<WeeklyTaskListProps> = ({ week }) => {
                     className="mb-2 rounded-lg bg-secondary p-4"
                 >
                     <Text className="text-lg font-semibold">{task.name}</Text>
-                    <Text className="text-secondary-foreground">
-                        {getScheduleText(task.repeatSchedule)}
-                    </Text>
+                    <Text>{getScheduleText(task.repeatSchedule)}</Text>
                 </View>
             ))}
         </View>

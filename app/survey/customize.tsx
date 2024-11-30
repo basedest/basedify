@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { db } from '~/db-module';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
-import { GoalType } from '~/types/goal.type';
 import { SurveyLayout } from '~/components/survey/SurveyLayout';
 import { CustomizeTask } from '~/components/survey/customize-task';
 import { useUserContext } from '~/entities/user';
 import { useRouter } from 'expo-router';
 import { TimeUtils } from '~/lib/utils';
+import { GoalType } from '~/entities/task';
 
 export default function Customize() {
     const { goodHabits, badHabits, initialGoal, goal, days } = useSurveyStore();
@@ -89,8 +89,7 @@ export default function Customize() {
 
         console.debug('Program created:', program);
 
-        // Redirect to next page
-        router.push('/survey/overview');
+        router.navigate('/survey/overview');
     };
 
     return (

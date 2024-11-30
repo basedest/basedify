@@ -1,2 +1,2 @@
 export * from './task.context';
-export * from './task.type';
+export * from './task.types';

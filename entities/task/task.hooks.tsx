@@ -1,5 +1,5 @@
 import { db } from '~/db-module';
-import { GoalType } from '~/types/goal.type';
+import { GoalType } from './task.types';
 
 export const useTaskOptions = () => db.taskOption.useFindMany();
 export const useGoodHabits = () =>

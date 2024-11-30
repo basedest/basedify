@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { TaskExtended } from './task.type';
-import { GoalType } from '../../types/goal.type';
+import { GoalType, TaskExtended } from './task.types';
 import { useCurrentUser } from '../user/user.hook';
 
 import { db } from '~/db-module';

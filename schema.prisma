@@ -63,7 +63,7 @@ model Task {
 model TaskProgress {
   id          Int       @id @default(autoincrement())
   date        DateTime  @default(now())
-  status      String    // "done", "skipped", "todo"
+  status      String    @default("todo") // "done", "skipped", "todo"
   value       Float?    // For measurable tasks
   task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId      Int

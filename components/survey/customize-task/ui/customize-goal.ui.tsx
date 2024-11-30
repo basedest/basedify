@@ -3,8 +3,8 @@ import { Text } from '~/components/ui/text';
 import { Slider } from '~/components/ui/slider';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
 import { getSliderConfig } from '../customize-task.lib';
-import { GoalType } from '~/types/goal.type';
 import { useEffect } from 'react';
+import { GoalType } from '~/entities/task';
 
 type CustomizeGoalProps = {
     taskConfig: TaskConfiguration;

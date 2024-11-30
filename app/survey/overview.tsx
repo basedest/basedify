@@ -21,7 +21,7 @@ export default function Overview() {
             where: { id: currentProgram.id },
             data: { startDate: new Date(), isActive: true },
         });
-        router.navigate('/(tabs)');
+        router.navigate('/(tabs)/home');
     };
 
     return (

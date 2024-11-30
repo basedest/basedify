@@ -12,8 +12,8 @@ export const useCurrentUser = () => {
     const currentProgram = db.program.useFindFirst({
         where: {
             userId: user?.id,
-            // there can be only one active program so we can safely assume that the first one is the active one
-            isActive: true,
+            // there can be only one not completed program so we can safely assume that the first one is the active one
+            isCompleted: false,
         },
     });
 

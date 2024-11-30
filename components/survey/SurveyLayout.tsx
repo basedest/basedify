@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
+import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Button } from '~/components/ui/button';
+import { Text } from '~/components/ui/text';
 
 type SurveyLayoutProps = {
     title: string;
@@ -26,9 +27,7 @@ export function SurveyLayout({
 
             <View className="border-t border-gray-200 p-4">
                 <Button disabled={nextButtonDisabled} onPress={onNext}>
-                    <Text className="text-center text-lg font-semibold text-white">
-                        {nextButtonText}
-                    </Text>
+                    <Text className="text-lg font-bold">{nextButtonText}</Text>
                 </Button>
             </View>
         </SafeAreaView>

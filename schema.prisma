@@ -22,7 +22,7 @@ model Program {
   id          Int       @id @default(autoincrement())
   startDate   DateTime  @default(now())
 //   currentDay  Int       @default(1)
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
   tasks       Task[]
   isActive    Boolean   @default(false)
@@ -53,9 +53,9 @@ model Task {
   currentStreak   Int       @default(0)
   bestStreak      Int       @default(0)
   repeatSchedule  String    // cron string
-  program         Program   @relation(fields: [programId], references: [id])
+  program         Program   @relation(fields: [programId], references: [id], onDelete: Cascade)
   programId       Int
-  taskOption      TaskOption @relation(fields: [taskOptionId], references: [id])
+  taskOption      TaskOption @relation(fields: [taskOptionId], references: [id], onDelete: Cascade)
   taskOptionId    Int
   taskProgress    TaskProgress[]
 }
@@ -65,7 +65,7 @@ model TaskProgress {
   date        DateTime  @default(now())
   status      String    // "done", "skipped", "todo"
   value       Float?    // For measurable tasks
-  task        Task      @relation(fields: [taskId], references: [id])
+  task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
   taskId      Int
 }
 
@@ -74,7 +74,7 @@ model Achievement {
   name        String
   icon        String
   unlockedAt  DateTime?
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
   type        String    // "program_streak", "task_streak", "program_completion"
   threshold   Int       // 3, 7, 14, 30 for streaks; 1, 3, 5 for completions
@@ -83,6 +83,7 @@ model Achievement {
 model Settings {
   id              Int     @id @default(autoincrement())
   notifications   Boolean @default(true)
-  user            User    @relation(fields: [userId], references: [id])
+  theme           String  @default("system")
+  user            User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId          Int     @unique
 }

@@ -32,6 +32,7 @@ export function TasksProvider({ children }: { children: React.ReactNode }) {
     const taskExtended = allTasks?.map((task) => {
         return {
             ...task,
+            name: task.taskOption.name,
             goalType: task.taskOption!.goalType as GoalType,
             description: task.taskOption?.description || null,
             category: task.taskOption?.category || null,

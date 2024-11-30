@@ -1,35 +1,42 @@
-import { Link, Tabs } from 'expo-router';
+import { useTheme } from '@react-navigation/native';
+import { Tabs } from 'expo-router';
 
-import { HeaderButton } from '../../components/HeaderButton';
-import { TabBarIcon } from '../../components/TabBarIcon';
+import { TabBarIcon } from '~/components/TabBarIcon';
+import { ThemedColors } from '~/lib/colors';
+import { getTabBarIconColor } from '~/lib/utils/color-utils';
 
 export default function TabLayout() {
+    const theme = useTheme();
+    const colors = theme.colors as ThemedColors;
+
     return (
-        <Tabs
-            screenOptions={{
-                tabBarActiveTintColor: 'black',
-            }}
-        >
+        <Tabs screenOptions={{}}>
             <Tabs.Screen
-                name="index"
+                name="home"
                 options={{
-                    title: 'Tab One',
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                    title: 'Home',
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon
+                            name="home"
+                            color={getTabBarIconColor({ colors, focused })}
+                        />
                     ),
-                    headerRight: () => (
-                        <Link href="/modal" asChild>
-                            <HeaderButton />
-                        </Link>
-                    ),
+                    // headerRight: () => (
+                    //     <Link href="/modal" asChild>
+                    //         <HeaderButton />
+                    //     </Link>
+                    // ),
                 }}
             />
             <Tabs.Screen
-                name="two"
+                name="settings"
                 options={{
-                    title: 'Tab Two',
-                    tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="code" color={color} />
+                    title: 'Settings',
+                    tabBarIcon: ({ focused }) => (
+                        <TabBarIcon
+                            name="cog"
+                            color={getTabBarIconColor({ colors, focused })}
+                        />
                     ),
                 }}
             />

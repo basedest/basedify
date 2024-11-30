@@ -6,6 +6,7 @@ import { SurveyLayout } from '~/components/survey/SurveyLayout';
 import { CustomizeTask } from '~/components/survey/customize-task';
 import { useUserContext } from '~/entities/user';
 import { useRouter } from 'expo-router';
+import { TimeUtils } from '~/lib/utils';
 
 export default function Customize() {
     const { goodHabits, badHabits, initialGoal, goal, days } = useSurveyStore();
@@ -57,7 +58,8 @@ export default function Customize() {
                           ...currentTask,
                           initialGoal,
                           goal,
-                          repeatSchedule: generateCronFromWeekdays(days),
+                          repeatSchedule:
+                              TimeUtils.generateCronFromWeekdays(days),
                       }
                     : task,
             ),
@@ -116,14 +118,5 @@ function generateDefaultSchedule(defaultDays: number): string {
         const randomIndex = Math.floor(Math.random() * allDays.length);
         selectedDays.push(allDays.splice(randomIndex, 1)[0]);
     }
-    return generateCronFromWeekdays(selectedDays);
-}
-
-function generateCronFromWeekdays(days: number[]): string {
-    return `0 0 * * ${days.sort().join(',')}`;
-}
-
-function parseCronToWeekdays(cron: string): number[] {
-    const parts = cron.split(' ');
-    return parts[4].split(',').map(Number);
+    return TimeUtils.generateCronFromWeekdays(selectedDays);
 }

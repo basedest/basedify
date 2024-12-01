@@ -5,7 +5,6 @@ export type TaskExtended = Task & {
     goalType: GoalType;
     description: string | null;
     category: string | null;
-    progress: TaskProgress[];
 };
 
 export const enum TaskKey {
@@ -46,3 +45,5 @@ export const enum TaskProgressStatus {
     Skipped = 'skipped',
     InProgress = 'inProgress',
 }
+
+export type TaskWithProgress = TaskExtended & { currentProgress: TaskProgress };

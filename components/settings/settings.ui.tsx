@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { SettingItem } from '~/components/settings/ui';
 import { useColorScheme } from '~/lib/use-color-scheme';
-import { Text } from '~/components/ui/text';
 import { useCurrentUser } from '~/entities/user';
 import { resetProgram } from './settings.lib';
 import { SettingGroup } from './ui/setting-group/setting-group.ui';

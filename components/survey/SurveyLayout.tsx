@@ -25,7 +25,7 @@ export function SurveyLayout({
                 <ScrollView className="flex-1">{children}</ScrollView>
             </View>
 
-            <View className="border-t border-muted p-4">
+            <View className="border-t border-t-secondary p-4">
                 <Button disabled={nextButtonDisabled} onPress={onNext}>
                     <Text className="text-lg font-bold">{nextButtonText}</Text>
                 </Button>

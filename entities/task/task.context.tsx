@@ -24,7 +24,6 @@ export function TasksProvider({ children }: { children: React.ReactNode }) {
         },
         include: {
             taskOption: true,
-            taskProgress: true,
         },
     });
 
@@ -35,12 +34,12 @@ export function TasksProvider({ children }: { children: React.ReactNode }) {
             goalType: task.taskOption!.goalType as GoalType,
             description: task.taskOption?.description || null,
             category: task.taskOption?.category || null,
-            progress: task.taskProgress || [],
         };
     });
 
     useEffect(() => {
         setTasks(taskExtended || []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allTasks]);
 
     return (

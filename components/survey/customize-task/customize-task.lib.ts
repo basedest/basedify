@@ -1,5 +1,5 @@
 import { TaskOption } from '@prisma/client';
-import { GoalType } from '~/entities/task';
+import { GoalType } from '~/entities/task/task.types';
 
 export const getValueTransformer = (taskOption: TaskOption) => {
     switch (taskOption.goalType as GoalType) {

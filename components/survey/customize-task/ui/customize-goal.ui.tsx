@@ -4,7 +4,7 @@ import { Slider } from '~/components/ui/slider';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
 import { getSliderConfig } from '../customize-task.lib';
 import { useEffect } from 'react';
-import { GoalType } from '~/entities/task';
+import { GoalType } from '~/entities/task/task.types';
 
 type CustomizeGoalProps = {
     taskConfig: TaskConfiguration;

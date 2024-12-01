@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client/react-native';
 import { reactiveHooksExtension } from '@prisma/react-native';
-import { GoalType, MeasureUnit, TaskKey } from './entities/task';
+import { GoalType, MeasureUnit, TaskKey } from './entities/task/task.types';
 
 const baseClient = new PrismaClient({
     log: [

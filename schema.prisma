@@ -21,7 +21,7 @@ model User {
 model Program {
   id          Int       @id @default(autoincrement())
   startDate   DateTime  @default(now())
-//   currentDay  Int       @default(1)
+  totalDays   Int       @default(70)
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int
   tasks       Task[]
@@ -52,7 +52,7 @@ model Task {
   initialDays     Int       @default(0) // To compare with the days and measure progress
   currentStreak   Int       @default(0)
   bestStreak      Int       @default(0)
-  repeatSchedule  String    // cron string
+  repeatSchedule  String    // days of the week from 0 (sunday) to 6 - e.g. "0,1,2,3,4,5,6" - everyday
   program         Program   @relation(fields: [programId], references: [id], onDelete: Cascade)
   programId       Int
   taskOption      TaskOption @relation(fields: [taskOptionId], references: [id], onDelete: Cascade)
@@ -62,7 +62,7 @@ model Task {
 
 model TaskProgress {
   id          Int       @id @default(autoincrement())
-  date        DateTime  @default(now())
+  day         Int       // day of program
   status      String    @default("todo") // "done", "skipped", "todo"
   value       Float?    // For measurable tasks
   task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)

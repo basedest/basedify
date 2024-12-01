@@ -6,7 +6,7 @@ import { CustomizeTask } from '~/components/survey/customize-task';
 import { useUserContext } from '~/entities/user';
 import { useRouter } from 'expo-router';
 import { TimeUtils } from '~/lib/utils';
-import { GoalType } from '~/entities/task';
+import { GoalType } from '~/entities/task/task.types';
 
 export default function Customize() {
     const { goodHabits, badHabits, initialGoal, goal, days } = useSurveyStore();
@@ -59,7 +59,7 @@ export default function Customize() {
                           initialGoal,
                           goal,
                           repeatSchedule:
-                              TimeUtils.generateCronFromWeekdays(days),
+                              TimeUtils.getRepeatScheduleString(days),
                       }
                     : task,
             ),
@@ -117,5 +117,5 @@ function generateDefaultSchedule(defaultDays: number): string {
         const randomIndex = Math.floor(Math.random() * allDays.length);
         selectedDays.push(allDays.splice(randomIndex, 1)[0]);
     }
-    return TimeUtils.generateCronFromWeekdays(selectedDays);
+    return TimeUtils.getRepeatScheduleString(selectedDays);
 }

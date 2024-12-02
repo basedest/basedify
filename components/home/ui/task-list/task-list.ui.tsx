@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 import { Text } from '~/components/ui/text';
-import { TaskWithProgress } from '~/entities/task/task.types';
 import { TaskItem } from '~/components/home/ui/task-item';
+import { TaskWithProgressAndOption } from '~/entities/task/task.lib';
 
 export type HomeTaskListProps = {
-    filteredTasks?: TaskWithProgress[];
+    filteredTasks?: TaskWithProgressAndOption[];
     isLoading: boolean;
 };
 
@@ -28,7 +28,7 @@ export const HomeTaskList = ({
             <FlatList
                 data={filteredTasks}
                 renderItem={({ item }) => <TaskItem task={item} />}
-                keyExtractor={(item) => `${item.id}`}
+                keyExtractor={(item) => `${item.task.id}`}
             />
         </View>
     );

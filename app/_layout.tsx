@@ -47,6 +47,7 @@ function RootLayout() {
                     isCompleted: false,
                 },
             });
+
             if (currentProgram) {
                 const calculatedDay = dayjs()
                     .startOf('day')

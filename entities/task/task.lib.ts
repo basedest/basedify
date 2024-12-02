@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
 import { TimeUtils } from '~/lib/utils';
-import { TaskExtended } from './task.types';
+import { TaskExtended, TaskProgressStatus } from './task.types';
+import { Task } from '@prisma/client';
+import { db } from '~/db-module';
 
 export function getCurrentDayTasks(
     tasks: TaskExtended[],
@@ -16,5 +18,17 @@ export function getCurrentDayTasks(
         return TimeUtils.parseRepeatScheduleString(task.repeatSchedule).some(
             (day) => day === currentWeekDay,
         );
+    });
+}
+
+export async function createTaskProgressesForDay(day: number, tasks?: Task[]) {
+    const taskList = tasks ?? (await db.task.findMany());
+
+    return db.taskProgress.createMany({
+        data: taskList.map((task) => ({
+            taskId: task.id,
+            status: TaskProgressStatus.Todo,
+            day,
+        })),
     });
 }

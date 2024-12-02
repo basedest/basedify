@@ -6,14 +6,18 @@ import { TaskItem } from '~/components/home/ui/task-item';
 
 export type HomeTaskListProps = {
     filteredTasks?: TaskWithProgress[];
+    isLoading: boolean;
 };
 
-export const HomeTaskList = ({ filteredTasks }: HomeTaskListProps) => {
+export const HomeTaskList = ({
+    filteredTasks,
+    isLoading,
+}: HomeTaskListProps) => {
     if (!filteredTasks?.length) {
         return (
             <View className="flex h-full w-full items-center py-72">
                 <Text className="text-lg font-medium">
-                    No tasks in this list
+                    {isLoading ? 'Loading...' : 'No tasks in this list'}
                 </Text>
             </View>
         );

@@ -3,11 +3,8 @@ import React from 'react';
 import { View, SafeAreaView } from 'react-native';
 import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
-import { useColorScheme } from '~/lib/use-color-scheme';
 
 export default function WelcomeScreen() {
-    const { toggleColorScheme } = useColorScheme();
-
     return (
         <SafeAreaView className="flex-1">
             <View className="flex-1 items-center justify-center p-5">
@@ -19,9 +16,6 @@ export default function WelcomeScreen() {
                     "The journey of a thousand miles begins with one step." -
                     Lao Tzu
                 </Text>
-                <Button onPress={toggleColorScheme}>
-                    <Text>Toggle scheme</Text>
-                </Button>
                 <Link href={{ pathname: '/survey/good-habits' }} asChild>
                     <Button size="lg">
                         <Text>Get started</Text>

@@ -1,49 +1,57 @@
 import { TaskProgress } from '@prisma/client';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { db } from '~/db-module';
+import { useProgramStore } from '~/entities/program/program.store';
+import { useTasksContext } from '~/entities/task';
 import { getCurrentDayTasks } from '~/entities/task/task.lib';
-import {
-    TaskExtended,
-    TaskProgressStatus,
-    TaskWithProgress,
-} from '~/entities/task/task.types';
+import { TaskWithProgress } from '~/entities/task/task.types';
 
-export const useCurrentDayTasks = (
-    tasks: TaskExtended[],
-    currentDay: number,
-    startDate?: Date,
-) => {
+export const useCurrentDayTasks = (currentDay: number) => {
+    const { tasks } = useTasksContext();
+    const { program } = useProgramStore();
+    const queryClient = useQueryClient();
+
+    useEffect(() => {
+        queryClient.invalidateQueries({ queryKey: ['tasks', currentDay] });
+    }, [tasks, program, queryClient, currentDay]);
+
     return useQuery({
         queryFn: async () => {
-            if (!startDate || !tasks) {
+            if (!program?.startDate || !tasks) {
                 return [];
             }
 
             const currentDayTasks = getCurrentDayTasks(
                 tasks,
-                startDate,
+                program.startDate,
                 currentDay,
             );
 
             const taskArray: TaskWithProgress[] = [];
 
             for (const task of currentDayTasks) {
-                const currentProgress: TaskProgress =
-                    (await db.taskProgress.findFirst({
-                        where: { taskId: task.id, day: currentDay },
-                    })) ??
-                    (await db.taskProgress.create({
+                let currentProgress = (await db.taskProgress.findUnique({
+                    where: {
+                        progressId: { taskId: task.id, day: currentDay },
+                    },
+                })) as TaskProgress;
+
+                if (!currentProgress) {
+                    currentProgress = (await db.taskProgress.create({
                         data: {
                             taskId: task.id,
-                            status: TaskProgressStatus.Todo,
                             day: currentDay,
                         },
-                    }));
+                    })) as TaskProgress;
+                }
+
                 taskArray.push({ ...task, currentProgress });
             }
 
             return taskArray;
         },
-        queryKey: [currentDay, startDate, tasks],
+        // eslint-disable-next-line @tanstack/query/exhaustive-deps
+        queryKey: ['tasks', currentDay],
     });
 };

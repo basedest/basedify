@@ -3,19 +3,20 @@ import React from 'react';
 import { View } from 'react-native';
 import { Calendar as RNCalendar } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
-import { NAV_THEME } from '~/lib/colors';
+import { ThemedColors } from '~/lib/colors';
 import dayjs from 'dayjs';
+import { getCalendarPreset } from '~/lib/calendar';
 
 interface CalendarProps {
     onWeekSelect: (week: number) => void;
 }
 
-// TODO: rename component since it's not general calendar
-export const Calendar: React.FC<CalendarProps> = ({ onWeekSelect }) => {
+export const ProgramOverviewCalendar: React.FC<CalendarProps> = ({
+    onWeekSelect,
+}) => {
     const theme = useTheme();
 
-    // TODO: better typing
-    const colors = theme.colors as (typeof NAV_THEME)['dark'];
+    const colors = theme.colors as ThemedColors;
 
     const startDate = dayjs();
     const endDate = startDate.add(10 * 7, 'day');
@@ -62,32 +63,15 @@ export const Calendar: React.FC<CalendarProps> = ({ onWeekSelect }) => {
     return (
         <View className="mb-6">
             <RNCalendar
-                firstDay={1}
+                {...getCalendarPreset(colors)}
                 markingType="period"
                 markedDates={markedDates}
                 minDate={startDate.format('YYYY-MM-DD')}
                 maxDate={endDate.format('YYYY-MM-DD')}
                 onDayPress={handleDayPress}
-                theme={{
-                    backgroundColor: colors.background,
-                    calendarBackground: colors.background,
-                    textSectionTitleColor: colors.text,
-                    selectedDayBackgroundColor: colors.border,
-                    selectedDayTextColor: colors.text,
-                    todayTextColor: colors.text,
-                    dayTextColor: colors.text,
-                    textDisabledColor: colors.primary,
-                    dotColor: colors.primary,
-                    selectedDotColor: colors.primary,
-                    arrowColor: colors.primary,
-                    monthTextColor: colors.text,
-                    textDayFontWeight: '300',
-                    textMonthFontWeight: 'bold',
-                    textDayHeaderFontWeight: '300',
-                }}
             />
         </View>
     );
 };
 
-export default Calendar;
+export default ProgramOverviewCalendar;

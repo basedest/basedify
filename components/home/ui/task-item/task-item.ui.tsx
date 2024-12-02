@@ -13,15 +13,15 @@ import {
 } from '~/components/ui/card';
 import { Button } from '~/components/ui/button';
 import { db } from '~/db-module';
+import { useQueryClient } from '@tanstack/react-query';
 
 type TaskItemProps = {
     task: TaskWithProgress;
 };
 
 export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
-    const taskProgress = db.taskProgress.useFindFirst({
-        where: { taskId: task.id },
-    });
+    const taskProgress = task.currentProgress;
+    const queryClient = useQueryClient();
 
     const taskProgressStatus =
         (taskProgress?.status as TaskProgressStatus) ??
@@ -32,7 +32,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
     const skipButtonText = isSkipped ? 'Unskip' : 'Skip';
 
-    const completeButtonText = isDone ? 'Uncomplete' : 'Complete';
+    const completeButtonText = isDone ? 'Undo' : 'Complete';
 
     const handleSkip = async () => {
         const newStatus = isSkipped
@@ -40,8 +40,29 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             : TaskProgressStatus.Skipped;
 
         await db.taskProgress.update({
-            where: { id: taskProgress!.id },
+            where: {
+                progressId: {
+                    taskId: task.id,
+                    day: task.currentProgress.day,
+                },
+            },
             data: { status: newStatus },
+        });
+
+        if (newStatus === TaskProgressStatus.Skipped) {
+            // TODO: invalidate streaks on startup
+            await db.task.update({
+                where: {
+                    id: task.id,
+                },
+                data: {
+                    currentStreak: 0,
+                },
+            });
+        }
+
+        await queryClient.invalidateQueries({
+            queryKey: ['tasks', task.currentProgress.day],
         });
     };
 
@@ -51,8 +72,30 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             : TaskProgressStatus.Done;
 
         await db.taskProgress.update({
-            where: { id: taskProgress!.id },
+            where: {
+                progressId: {
+                    taskId: task.id,
+                    day: task.currentProgress.day,
+                },
+            },
             data: { status: newStatus },
+        });
+
+        const newStreak = isDone ? --task.currentStreak : ++task.currentStreak;
+        await db.task.update({
+            where: {
+                id: task.id,
+            },
+            data: {
+                currentStreak: newStreak,
+                ...(newStreak > task.bestStreak && {
+                    bestStreak: newStreak,
+                }),
+            },
+        });
+
+        await queryClient.invalidateQueries({
+            queryKey: ['tasks', task.currentProgress.day],
         });
     };
 
@@ -65,6 +108,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             <CardContent className="p-4">
                 <View className="flex-row justify-between">
                     <Text>Streak: {task.currentStreak}</Text>
+                    {/* TODO: i18n */}
                     <Text>{task.repeatSchedule.split(',').join(', ')}</Text>
                 </View>
                 <View className="mt-2 flex-row justify-end gap-2">
@@ -72,7 +116,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                         disabled={!taskProgressStatus}
                         size="sm"
                         variant="secondary"
-                        className="w-32"
+                        className="w-28"
                         onPress={handleSkip}
                     >
                         <Text>{skipButtonText}</Text>
@@ -80,7 +124,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                     <Button
                         disabled={!taskProgressStatus}
                         size="sm"
-                        className=" w-32"
+                        className=" w-28"
                         onPress={handleComplete}
                     >
                         <Text>{completeButtonText}</Text>

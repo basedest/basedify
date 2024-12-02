@@ -1,9 +1,10 @@
 import { Stack } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 import { useTasksContext } from '~/entities/task';
-import { t } from '~/lib/utils/i18n';
 
 export default function SurveyLayout() {
+    const { t } = useTranslation();
     const { tasks } = useTasksContext();
     const isSurveyCompleted = tasks.length > 0;
 

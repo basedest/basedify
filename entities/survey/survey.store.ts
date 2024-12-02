@@ -1,5 +1,5 @@
 import { SurveyStore } from './survey.types';
-import { create } from 'zustand';
+import { create } from 'zustand/react';
 
 export const useSurveyStore = create<SurveyStore>()((set) => ({
     goodHabits: [],

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { TimeUtils } from '~/lib/utils';
 import { TaskExtended, TaskProgressStatus } from './task.types';
-import { Prisma, Task, TaskOption, TaskProgress } from '@prisma/client';
+import { Task, TaskOption, TaskProgress } from '@prisma/client';
 import { db } from '~/db-module';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

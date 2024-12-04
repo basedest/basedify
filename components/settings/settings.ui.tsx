@@ -5,25 +5,27 @@ import { useColorScheme } from '~/lib/use-color-scheme';
 import { useCurrentUser } from '~/entities/user';
 import { resetProgram } from './settings.lib';
 import { SettingGroup } from './ui/setting-group/setting-group.ui';
+import { useTranslation } from 'react-i18next';
 
 export const Settings = () => {
+    const { t } = useTranslation();
     const [notifications, setNotifications] = useState(true);
     const { colorScheme, setColorScheme } = useColorScheme();
     const { currentProgram } = useCurrentUser();
 
     return (
         <ScrollView className=" flex-1 px-4 pt-4">
-            <SettingGroup className="mb-6" title="Preferences">
+            <SettingGroup className="mb-6" title={t('settings.preferences')}>
                 <SettingItem
-                    title="Notifications"
-                    description="Receive reminders and updates"
+                    title={t('settings.notifications')}
+                    description={t('settings.notificationsDescription')}
                     isSwitch={true}
                     value={notifications}
                     onValueChange={setNotifications}
                 />
                 <SettingItem
-                    title="Dark Mode"
-                    description="Toggle dark theme"
+                    title={t('settings.darkMode')}
+                    description={t('settings.darkModeDescription')}
                     isSwitch={true}
                     value={colorScheme === 'dark'}
                     onValueChange={(isDark) =>
@@ -34,40 +36,27 @@ export const Settings = () => {
                 />
             </SettingGroup>
 
-            <SettingGroup className="mb-6" title="Account">
-                <SettingItem
-                    title="Edit Profile"
-                    onPress={() => console.log('Edit Profile pressed')}
-                />
-                <SettingItem
-                    title="Change Password"
-                    onPress={() => console.log('Change Password pressed')}
-                />
-            </SettingGroup>
+            {/* <SettingGroup className="mb-6" title={t('settings.account')}>
+                <SettingItem title={t('settings.editProfile')} />
+                <SettingItem title={t('settings.changePassword')} />
+            </SettingGroup> */}
 
-            <SettingGroup className="mb-6" title="Program">
+            <SettingGroup className="mb-6" title={t('settings.program')}>
                 <SettingItem
                     hidden={!currentProgram}
-                    title="Reset Progress"
-                    description="Start your program from day 1"
+                    title={t('settings.resetProgress')}
+                    description={t('settings.resetProgressDescription')}
                     onPress={() => resetProgram(currentProgram!.id)}
                 />
-                <SettingItem
-                    title="Adjust Program Length"
-                    description="Change the duration of your program"
-                    onPress={() => console.log('Adjust Program Length pressed')}
-                />
+                {/* <SettingItem
+                    title={t('settings.adjustProgramLength')}
+                    description={t('settings.adjustProgramLengthDescription')}
+                /> */}
             </SettingGroup>
 
-            <SettingGroup className="mb-6" title="Support">
-                <SettingItem
-                    title="Help Center"
-                    onPress={() => console.log('Help Center pressed')}
-                />
-                <SettingItem
-                    title="Contact Us"
-                    onPress={() => console.log('Contact Us pressed')}
-                />
+            <SettingGroup className="mb-6" title={t('settings.support')}>
+                {/* <SettingItem title={t('settings.helpCenter')} /> */}
+                <SettingItem title={t('settings.contactUs')} />
             </SettingGroup>
 
             {/* <TouchableOpacity
@@ -75,7 +64,7 @@ export const Settings = () => {
                 onPress={handleLogout}
             >
                 <Text className="text-center font-semibold text-primary">
-                    Log Out
+                    {t('settings.logOut')}
                 </Text>
             </TouchableOpacity> */}
         </ScrollView>

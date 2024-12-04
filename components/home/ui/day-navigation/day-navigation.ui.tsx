@@ -4,6 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { useCurrentUser } from '~/entities/user';
 import { Text } from '~/components/ui/text';
 import { ThemedColors } from '~/lib/colors';
+import { useTranslation } from 'react-i18next';
 
 type DayNavigationProps = {
     currentDay: number;
@@ -18,6 +19,7 @@ export const DayNavigation: React.FC<DayNavigationProps> = ({
     const colors = theme.colors as ThemedColors;
     const { currentProgram } = useCurrentUser();
     const totalDays = currentProgram?.totalDays ?? 70;
+    const { t } = useTranslation();
 
     return (
         <View className="flex-row items-center justify-between">
@@ -30,7 +32,10 @@ export const DayNavigation: React.FC<DayNavigationProps> = ({
                 />
             </TouchableOpacity>
             <Text className="text-lg font-bold">
-                Day {currentDay}/{totalDays}
+                {t('dayNavigation.day', {
+                    current: currentDay,
+                    total: totalDays,
+                })}
             </Text>
             <TouchableOpacity
                 onPress={() =>

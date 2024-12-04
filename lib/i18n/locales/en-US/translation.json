@@ -1,1 +1,203 @@
-{}
+{
+    "notFound": {
+        "title": "Oops!",
+        "message": "This screen doesn't exist.",
+        "linkText": "Go to home screen!"
+    },
+    "weeklyTasks": {
+        "title": "Week {number} Tasks",
+        "schedule": {
+            "everyday": "everyday",
+            "specificDays": "on day {days}"
+        }
+    },
+    "taskCustomization": {
+        "taskCount": "{current}/{total}: {taskName}"
+    },
+    "taskItem": {
+        "streak": "Streak: {{count}}",
+        "actions": {
+            "skip": "Skip",
+            "unskip": "Unskip",
+            "complete": "Complete",
+            "undo": "Undo"
+        }
+    },
+    "weekdayPicker": {
+        "days": {
+            "mon": "Mon",
+            "tue": "Tue",
+            "wed": "Wed",
+            "thu": "Thu",
+            "fri": "Fri",
+            "sat": "Sat",
+            "sun": "Sun"
+        },
+        "validation": {
+            "minDays": "Select at least {{count}} day",
+            "minDays_plural": "Select at least {{count}} days"
+        }
+    },
+    "taskFilter": {
+        "status": {
+            "todo": "Todo",
+            "done": "Done",
+            "skipped": "Skipped"
+        }
+    },
+    "taskList": {
+        "empty": "No tasks in this list"
+    },
+    "common": {
+        "loading": "Loading..."
+    },
+    "progress": {
+        "streak": {
+            "current": "Current streak: {{count}}",
+            "best": "Best streak: {{count}}"
+        }
+    },
+    "dayNavigation": {
+        "day": "Day {{current}}/{{total}}"
+    },
+    "enums": {
+        "goalType": {
+            "time": "Time",
+            "do": "Do",
+            "duration": "Duration",
+            "dont": "Don't",
+            "measurable": "Measurable"
+        },
+        "measureUnit": {
+            "times": "{{count}} time",
+            "times_plural": "{{count}} times",
+            "reps": "{{count}} rep",
+            "reps_plural": "{{count}} reps",
+            "min": "{{count}} minute",
+            "min_plural": "{{count}} minutes",
+            "h": "{{count}} hour",
+            "h_plural": "{{count}} hours",
+            "d": "{{count}} day",
+            "d_plural": "{{count}} days",
+            "kg": "{{count}} kilogram",
+            "kg_plural": "{{count}} kilograms",
+            "g": "{{count}} gram",
+            "g_plural": "{{count}} grams",
+            "l": "{{count}} liter",
+            "l_plural": "{{count}} liters",
+            "ml": "{{count}} milliliter",
+            "ml_plural": "{{count}} milliliters"
+        },
+        "taskProgressStatus": {
+            "todo": "Todo",
+            "done": "Done",
+            "skipped": "Skipped",
+            "inProgress": "In Progress"
+        }
+    },
+    "weekday": {
+        "0": "Sunday",
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday"
+    },
+    "weekdayShort": {
+        "0": "Sun",
+        "1": "Mon",
+        "2": "Tue",
+        "3": "Wed",
+        "4": "Thu",
+        "5": "Fri",
+        "6": "Sat"
+    },
+    "weekdayRange": {
+        "single": "Every {day}",
+        "multiple": "Every {{days, list}}",
+        "everyday": "Everyday"
+    },
+    "survey": {
+        "goodHabits": {
+            "title": "Good Habits",
+            "stepTitle": "Step 1. Choose the good habits you want to acquire"
+        },
+        "overview": {
+            "title": "Your next 10 weeks",
+            "subtitle": "The program is personalised on your current lifestyle. Tap on a week for detailed routine.",
+            "loading": "Creating program...",
+            "startButton": "Start program"
+        },
+        "badHabits": {
+            "title": "Bad Habits",
+            "stepTitle": "Step 2. Choose the bad habits you want to break",
+            "habits": {
+                "limitSocialMedia": {
+                    "title": "Limit Social Media",
+                    "description": "Reduce time spent on social networks to improve focus and productivity"
+                },
+                "quitSmoking": {
+                    "title": "Quit Smoking",
+                    "description": "Break free from smoking addiction for better health"
+                }
+            }
+        },
+        "customize": {
+            "title": "Step 3. Customize your program",
+            "buttons": {
+                "next": "Next",
+                "finish": "Finish"
+            }
+        }
+    },
+    "settings": {
+        "preferences": "Preferences",
+        "notifications": "Notifications",
+        "notificationsDescription": "Receive reminders and updates",
+        "darkMode": "Dark Mode",
+        "darkModeDescription": "Toggle dark theme",
+        "account": "Account",
+        "editProfile": "Edit Profile",
+        "changePassword": "Change Password",
+        "program": "Program",
+        "resetProgressDescription": "Start your program from day 1",
+        "adjustProgramLength": "Adjust Program Length",
+        "adjustProgramLengthDescription": "Change the duration of your program",
+        "support": "Support",
+        "helpCenter": "Help Center",
+        "contactUs": "Contact Us",
+        "logOut": "Log Out"
+    },
+    "tasks": {
+        "wakeUp": {
+            "name": "Wake up early",
+            "description": "Start your day early to boost productivity"
+        },
+        "gym": {
+            "name": "Hit the gym",
+            "description": "Regular exercise for better health"
+        },
+        "limitSocialMedia": {
+            "name": "Limit social media",
+            "description": "Reduce time spent on social media"
+        },
+        "quitSmoking": {
+            "name": "Quit smoking",
+            "description": "Stop smoking for better health"
+        },
+        "drinkWater": {
+            "name": "Drink water",
+            "description": "Stay hydrated throughout the day"
+        },
+        "coldShower": {
+            "name": "Take cold shower",
+            "description": "Build mental strength with cold exposure"
+        }
+    },
+    "tabLayout": {
+        "home": "Home",
+        "progress": "Progress",
+        "settings": "Settings"
+    }
+}

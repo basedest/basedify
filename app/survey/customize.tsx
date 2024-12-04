@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { db } from '~/db-module';
 import { TaskConfiguration, useSurveyStore } from '~/entities/survey';
 import { SurveyLayout } from '~/components/survey/SurveyLayout';
@@ -9,6 +10,7 @@ import { TimeUtils } from '~/lib/utils';
 import { GoalType } from '~/entities/task/task.types';
 
 export default function Customize() {
+    const { t } = useTranslation();
     const { goodHabits, badHabits, initialGoal, goal, days } = useSurveyStore();
     const { currentUser } = useUserContext();
     const router = useRouter();
@@ -94,9 +96,13 @@ export default function Customize() {
 
     return (
         <SurveyLayout
-            title="Step 3. Customize your program"
+            title={t('survey.customize.title')}
             onNext={handleNext}
-            nextButtonText={isLastTask ? 'Finish' : 'Next'}
+            nextButtonText={
+                isLastTask
+                    ? t('survey.customize.buttons.finish')
+                    : t('survey.customize.buttons.next')
+            }
             nextButtonDisabled={!goal || !days.length}
         >
             {configurableTasks[currentTaskIndex] && (

@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import React from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import { Button } from '~/components/ui/button';
@@ -15,7 +16,7 @@ export function SurveyLayout({
     title,
     children,
     onNext,
-    nextButtonText = 'Continue',
+    nextButtonText = t('surveyLayout.next'),
     nextButtonDisabled,
 }: SurveyLayoutProps) {
     return (

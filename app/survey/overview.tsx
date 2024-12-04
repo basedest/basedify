@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ProgramOverviewCalendar } from '~/components/survey/calendar';
 import { SurveyLayout } from '~/components/survey/SurveyLayout';
 import { WeeklyTaskList } from '~/components/survey/weekly-task-list';
@@ -10,6 +11,7 @@ import { createTaskProgressesForDay } from '~/entities/task/task.lib';
 import { useCurrentUser } from '~/entities/user';
 
 export default function Overview() {
+    const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(false);
     const { currentProgram } = useCurrentUser();
     const [selectedWeek, setSelectedWeek] = useState(1);
@@ -39,13 +41,16 @@ export default function Overview() {
     return (
         <SurveyLayout
             nextButtonDisabled={isLoading}
-            nextButtonText={isLoading ? 'Creating program...' : 'Start program'}
+            nextButtonText={
+                isLoading
+                    ? t('survey.overview.loading')
+                    : t('survey.overview.startButton')
+            }
             onNext={handleNext}
-            title="Your next 10 weeks"
+            title={t('survey.overview.title')}
         >
             <Text className="mb-4 text-secondary-foreground">
-                The program is personalised on your current lifestyle. Tap on a
-                week for detailed routine.
+                {t('survey.overview.subtitle')}
             </Text>
             <ProgramOverviewCalendar onWeekSelect={setSelectedWeek} />
             <WeeklyTaskList week={selectedWeek} />

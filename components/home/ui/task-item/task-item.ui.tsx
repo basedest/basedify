@@ -14,12 +14,34 @@ import {
     useUpdateTaskProgress,
     useUpdateTaskStreak,
 } from '~/entities/task/task.lib';
+import { useTranslation } from 'react-i18next';
 
 type TaskItemProps = {
     task: TaskWithProgressAndOption;
 };
 
+const getLocalizedRepeatSchedule = (
+    days: number[],
+    t: any,
+    verbose: boolean = false,
+): string => {
+    if (days.length === 7) {
+        return t('weekdayRange.everyday');
+    }
+    days.sort((a, b) => a - b);
+    const sortedDays = days.map((day) => (day + 1) % 7);
+    // TODO: handle edge cases: не склоняются дни по падежам
+    if (verbose) {
+        const dayNames = sortedDays.map((day) => t(`weekday.${day}`));
+        return t('weekdayRange.multiple', { days: dayNames });
+    } else {
+        const dayShortNames = sortedDays.map((day) => t(`weekdayShort.${day}`));
+        return dayShortNames.join(', ');
+    }
+};
+
 export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
+    const { t } = useTranslation();
     const taskProgress = task.currentTaskProgress;
     const { mutate: updateProgress } = useUpdateTaskProgress();
     const { mutate: updateStreak } = useUpdateTaskStreak();
@@ -30,9 +52,13 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     const isSkipped = taskProgressStatus === TaskProgressStatus.Skipped;
     const isDone = taskProgressStatus === TaskProgressStatus.Done;
 
-    const skipButtonText = isSkipped ? 'Unskip' : 'Skip';
+    const skipButtonText = isSkipped
+        ? t('taskItem.actions.unskip')
+        : t('taskItem.actions.skip');
 
-    const completeButtonText = isDone ? 'Undo' : 'Complete';
+    const completeButtonText = isDone
+        ? t('taskItem.actions.undo')
+        : t('taskItem.actions.complete');
 
     const handleSkip = () => {
         const newStatus = isSkipped
@@ -46,7 +72,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         });
 
         if (newStatus === TaskProgressStatus.Skipped) {
-            // TODO: invalidate streaks on startup
+            // TODO: invalidate streaks on startup: auto skip tasks that are not done and was due yesterday or earlier
             updateStreak({
                 taskId: task.task.id,
                 streak: task.task.currentStreak,
@@ -79,16 +105,25 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
     return (
         <Card className="mb-4 w-full rounded-lg bg-card pt-4">
-            <CardTitle className="pl-4">{task.taskOption.name}</CardTitle>
-            <CardDescription className="pl-4">
-                {task.taskOption.description}
-            </CardDescription>
+            <CardTitle className="pl-4">{t(task.taskOption.name)}</CardTitle>
+            {task.taskOption.description && (
+                <CardDescription className="pl-4">
+                    {t(task.taskOption.description)}
+                </CardDescription>
+            )}
             <CardContent className="p-4">
                 <View className="flex-row justify-between">
-                    <Text>Streak: {task.task.currentStreak}</Text>
-                    {/* TODO: i18n */}
                     <Text>
-                        {task.task.repeatSchedule.split(',').join(', ')}
+                        {t('taskItem.streak', {
+                            count: task.task.currentStreak,
+                        })}
+                    </Text>
+                    <Text>
+                        {getLocalizedRepeatSchedule(
+                            task.task.repeatSchedule.split(',').map(Number),
+                            t,
+                            false,
+                        )}
                     </Text>
                 </View>
                 <View className="mt-2 flex-row justify-end gap-2">
@@ -96,7 +131,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                         disabled={!taskProgressStatus}
                         size="sm"
                         variant="secondary"
-                        className="w-28"
+                        className="w-32"
                         onPress={handleSkip}
                     >
                         <Text>{skipButtonText}</Text>
@@ -104,7 +139,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                     <Button
                         disabled={!taskProgressStatus}
                         size="sm"
-                        className=" w-28"
+                        className=" w-32"
                         onPress={handleComplete}
                     >
                         <Text>{completeButtonText}</Text>

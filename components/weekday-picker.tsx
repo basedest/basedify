@@ -1,4 +1,5 @@
 import { View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
 import { Text } from './ui/text';
 import { cn } from '~/lib/utils';
@@ -18,14 +19,16 @@ export const WeekdayPicker = ({
     disabled,
     min,
 }: WeekdayPickerProps) => {
+    const { t } = useTranslation();
+
     const days = [
-        { label: 'Mon', value: 1 },
-        { label: 'Tue', value: 2 },
-        { label: 'Wed', value: 3 },
-        { label: 'Thu', value: 4 },
-        { label: 'Fri', value: 5 },
-        { label: 'Sat', value: 6 },
-        { label: 'Sun', value: 0 },
+        { label: t('weekdayPicker.days.mon'), value: 1 },
+        { label: t('weekdayPicker.days.tue'), value: 2 },
+        { label: t('weekdayPicker.days.wed'), value: 3 },
+        { label: t('weekdayPicker.days.thu'), value: 4 },
+        { label: t('weekdayPicker.days.fri'), value: 5 },
+        { label: t('weekdayPicker.days.sat'), value: 6 },
+        { label: t('weekdayPicker.days.sun'), value: 0 },
     ];
 
     const onToggleDay = (selectedDays: string[]) => {
@@ -54,7 +57,7 @@ export const WeekdayPicker = ({
             </ToggleGroup>
             {min && value.length < min && (
                 <Text className="text-base text-red-500">
-                    Select at least {min} {min === 1 ? 'day' : 'days'}
+                    {t('weekdayPicker.validation.minDays', { count: min })}
                 </Text>
             )}
         </View>

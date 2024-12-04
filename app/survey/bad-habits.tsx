@@ -4,6 +4,7 @@ import { useBadHabits } from '~/entities/task/task.hooks';
 import { useSurveyStore } from '~/entities/survey';
 import { SurveyLayout } from '~/components/survey/SurveyLayout';
 import { HabitCard } from '~/components/survey/HabitCard';
+import { useTranslation } from 'react-i18next';
 
 export default function BadHabits() {
     const router = useRouter();
@@ -11,6 +12,7 @@ export default function BadHabits() {
     const [selectedHabits, setSelectedHabits] =
         useState<number[]>(chosenBadHabits);
     const badHabits = useBadHabits();
+    const { t } = useTranslation();
 
     const toggleHabit = (id: number) => {
         setSelectedHabits((prev) =>
@@ -27,7 +29,7 @@ export default function BadHabits() {
 
     return (
         <SurveyLayout
-            title="Step 2. Choose the bad habits you want to break"
+            title={t('survey.badHabits.stepTitle')}
             onNext={handleNextStep}
         >
             {badHabits.map((habit) => (

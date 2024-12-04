@@ -14,27 +14,27 @@ export default function SurveyLayout() {
                 <Stack.Screen
                     name="good-habits"
                     options={{
-                        title: t('goodHabits', 'Good Habits'),
+                        title: t('survey.goodHabits.title'),
                         headerBackVisible: false,
                     }}
                     redirect={isSurveyCompleted}
                 />
                 <Stack.Screen
                     name="bad-habits"
-                    options={{ title: t('badHabits', 'Bad Habits') }}
+                    options={{ title: t('survey.badHabits.title') }}
                     redirect={isSurveyCompleted}
                 />
                 <Stack.Screen
                     name="customize"
                     options={{
-                        title: t('customizeProgram', 'Customize Program'),
+                        title: t('survey.customize.title'),
                     }}
                     redirect={isSurveyCompleted}
                 />
                 <Stack.Screen
                     name="overview"
                     options={{
-                        title: t('programOverview', 'Program Overview'),
+                        title: t('survey.overview.title'),
                         headerBackVisible: false,
                     }}
                 />

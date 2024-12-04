@@ -1,1 +1,204 @@
-{}
+{
+    "notFound": {
+        "title": "Упс!",
+        "message": "Этот экран не существует.",
+        "linkText": "Перейти на главный экран!"
+    },
+    "weeklyTasks": {
+        "title": "Задачи недели {number}",
+        "schedule": {
+            "everyday": "каждый день",
+            "specificDays": "в день {days}"
+        }
+    },
+    "taskCustomization": {
+        "taskCount": "{current}/{total}: {taskName}"
+    },
+    "taskItem": {
+        "streak": "Серия: {{count}}",
+        "actions": {
+            "skip": "Пропустить",
+            "unskip": "Отменить пропуск",
+            "complete": "Завершить",
+            "undo": "Отменить"
+        }
+    },
+    "weekdayPicker": {
+        "days": {
+            "mon": "Пн",
+            "tue": "Вт",
+            "wed": "Ср",
+            "thu": "Чт",
+            "fri": "Пт",
+            "sat": "Сб",
+            "sun": "Вс"
+        },
+        "validation": {
+            "minDays": "Выберите как минимум {{count}} день",
+            "minDays_plural": "Выберите как минимум {{count}} дней"
+        }
+    },
+    "taskFilter": {
+        "status": {
+            "todo": "Выполнить",
+            "done": "Выполнено",
+            "skipped": "Пропущено"
+        }
+    },
+    "taskList": {
+        "empty": "Нет задач в этом списке"
+    },
+    "common": {
+        "loading": "Загрузка..."
+    },
+    "progress": {
+        "streak": {
+            "current": "Текущая серия: {{count}}",
+            "best": "Лучшая серия: {{count}}"
+        }
+    },
+    "dayNavigation": {
+        "day": "День {{current}}/{{total}}"
+    },
+    "enums": {
+        "goalType": {
+            "time": "Время",
+            "do": "Сделать",
+            "duration": "Продолжительность",
+            "dont": "Не делать",
+            "measurable": "Измеримый"
+        },
+        "measureUnit": {
+            "times": "{{count}} раз",
+            "times_plural": "{{count}} раз",
+            "reps": "{{count}} повторение",
+            "reps_plural": "{{count}} повторений",
+            "min": "{{count}} минута",
+            "min_plural": "{{count}} минут",
+            "h": "{{count}} час",
+            "h_plural": "{{count}} часов",
+            "d": "{{count}} день",
+            "d_plural": "{{count}} дней",
+            "kg": "{{count}} килограмм",
+            "kg_plural": "{{count}} килограммов",
+            "g": "{{count}} грамм",
+            "g_plural": "{{count}} граммов",
+            "l": "{{count}} литр",
+            "l_plural": "{{count}} литров",
+            "ml": "{{count}} миллилитр",
+            "ml_plural": "{{count}} миллилитров"
+        },
+        "taskProgressStatus": {
+            "todo": "Выполнить",
+            "done": "Выполнено",
+            "skipped": "Пропущено",
+            "inProgress": "В процессе"
+        }
+    },
+    "weekday": {
+        "0": "Воскресенье",
+        "1": "Понедельник",
+        "2": "Вторник",
+        "3": "Среда",
+        "4": "Четверг",
+        "5": "Пятница",
+        "6": "Суббота"
+    },
+    "weekdayShort": {
+        "0": "Вс",
+        "1": "Пн",
+        "2": "Вт",
+        "3": "Ср",
+        "4": "Чт",
+        "5": "Пт",
+        "6": "Сб"
+    },
+    "weekdayRange": {
+        "single": "Каждое {day}",
+        "multiple": "Каждое {{days, list}}",
+        "everyday": "Каждый день"
+    },
+    "survey": {
+        "goodHabits": {
+            "title": "Хорошие привычки",
+            "stepTitle": "Шаг 1. Выберите хорошие привычки, которые хотите приобрести"
+        },
+        "overview": {
+            "title": "Ваши следующие 10 недель",
+            "subtitle": "Программа персонализирована под ваш текущий образ жизни. Нажмите на неделю для подробного расписания.",
+            "loading": "Создание программы...",
+            "startButton": "Начать программу"
+        },
+        "badHabits": {
+            "title": "Плохие привычки",
+            "stepTitle": "Шаг 2. Выберите плохие привычки, от которых хотите избавиться",
+            "habits": {
+                "limitSocialMedia": {
+                    "title": "Ограничить социальные сети",
+                    "description": "Сократите время, проводимое в социальных сетях, чтобы улучшить концентрацию и продуктивность"
+                },
+                "quitSmoking": {
+                    "title": "Бросить курить",
+                    "description": "Избавьтесь от зависимости от курения для улучшения здоровья"
+                }
+            }
+        },
+        "customize": {
+            "title": "Шаг 3. Настройте свою программу",
+            "buttons": {
+                "next": "Далее",
+                "finish": "Завершить"
+            }
+        }
+    },
+    "settings": {
+        "preferences": "Настройки",
+        "notifications": "Уведомления",
+        "notificationsDescription": "Получать напоминания и обновления",
+        "darkMode": "Темный режим",
+        "darkModeDescription": "Переключить темную тему",
+        "account": "Аккаунт",
+        "editProfile": "Редактировать профиль",
+        "changePassword": "Сменить пароль",
+        "program": "Программа",
+        "resetProgress": "Сбросить прогресс",
+        "resetProgressDescription": "Начать программу с первого дня",
+        "adjustProgramLength": "Изменить длительность программы",
+        "adjustProgramLengthDescription": "Изменить продолжительность вашей программы",
+        "support": "Поддержка",
+        "helpCenter": "Центр помощи",
+        "contactUs": "Свяжитесь с нами",
+        "logOut": "Выйти"
+    },
+    "tasks": {
+        "wakeUp": {
+            "name": "Просыпаться рано",
+            "description": "Начинайте день рано, чтобы повысить продуктивность"
+        },
+        "gym": {
+            "name": "Посетить спортзал",
+            "description": "Регулярные тренировки для улучшения здоровья"
+        },
+        "limitSocialMedia": {
+            "name": "Ограничить социальные сети",
+            "description": "Сократите время, проводимое в социальных сетях"
+        },
+        "quitSmoking": {
+            "name": "Бросить курить",
+            "description": "Избавьтесь от зависимости от курения для улучшения здоровья"
+        },
+        "drinkWater": {
+            "name": "Пить воду",
+            "description": "Оставайтесь гидратированными в течение дня"
+        },
+        "coldShower": {
+            "name": "Принимать холодный душ",
+            "description": "Развивайте ментальную силу с помощью холодного воздействия"
+        }
+    },
+    "tabLayout": {
+        "home": "Главная",
+        "progress": "Прогресс",
+        "settings": "Настройки"
+    }
+}

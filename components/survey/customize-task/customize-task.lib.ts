@@ -1,5 +1,6 @@
 import { TaskOption } from '@prisma/client';
-import { GoalType } from '~/entities/task/task.types';
+import { t } from 'i18next';
+import { GoalType, MeasureUnit } from '~/entities/task/task.types';
 
 export const getValueTransformer = (taskOption: TaskOption) => {
     switch (taskOption.goalType as GoalType) {
@@ -16,6 +17,11 @@ export const getValueTransformer = (taskOption: TaskOption) => {
 
 export const getSliderConfig = (taskOption: TaskOption) => {
     const transformer = getValueTransformer(taskOption);
+
+    const formatMeasureUnit = (value: number, unit: string) => {
+        return t(`enums.measureUnit.${unit}`, { count: value });
+    };
+
     switch (taskOption.goalType as GoalType) {
         case GoalType.Time:
             return {
@@ -30,7 +36,10 @@ export const getSliderConfig = (taskOption: TaskOption) => {
                 max: 120,
                 step: 5,
                 format: (value: number | null) =>
-                    `${transformer(value)} ${taskOption.measureUnit || 'minutes'}`,
+                    formatMeasureUnit(
+                        transformer(value),
+                        taskOption.measureUnit || MeasureUnit.Minutes,
+                    ),
             };
         case GoalType.Measurable:
             return {
@@ -38,7 +47,10 @@ export const getSliderConfig = (taskOption: TaskOption) => {
                 max: taskOption.defaultGoal ? taskOption.defaultGoal * 2 : 10,
                 step: 0.5,
                 format: (value: number | null) =>
-                    `${transformer(value)} ${taskOption.measureUnit || 'units'}`,
+                    formatMeasureUnit(
+                        transformer(value),
+                        taskOption.measureUnit || MeasureUnit.Times,
+                    ),
             };
         default:
             return {

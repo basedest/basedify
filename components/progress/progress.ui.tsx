@@ -5,8 +5,8 @@ import { useCallback, useEffect, useMemo, useReducer } from 'react';
 import { useProgramStore } from '~/entities/program/program.store';
 import { TaskWithRelations, useTasksQuery } from './progress.lib';
 import { TaskProgressCalendar } from './task-progress-calendar';
+import { useTranslation } from 'react-i18next';
 
-// Move ListItem to separate file if it grows larger
 const ListItem = ({
     task,
     selectedTaskId,
@@ -16,6 +16,7 @@ const ListItem = ({
     selectedTaskId: number;
     onSelect: (id: number) => void;
 }) => {
+    const { t } = useTranslation();
     const handlePress = useCallback(
         () => onSelect(task.id),
         [onSelect, task.id],
@@ -27,13 +28,14 @@ const ListItem = ({
             variant={task.id === selectedTaskId ? 'outline' : 'default'}
         >
             <TouchableOpacity onPress={handlePress}>
-                <Text className="text-sm">{task.taskOption.name}</Text>
+                <Text className="text-sm">{t(task.taskOption.name)}</Text>
             </TouchableOpacity>
         </Badge>
     );
 };
 
 export const ProgressScreen = () => {
+    const { t } = useTranslation();
     const { program } = useProgramStore();
     const { data: tasks, isLoading } = useTasksQuery(program?.id);
 
@@ -78,9 +80,15 @@ export const ProgressScreen = () => {
                     />
                     <View>
                         <Text>
-                            Current streak: {selectedTask.currentStreak}
+                            {t('progress.streak.current', {
+                                count: selectedTask.currentStreak,
+                            })}
                         </Text>
-                        <Text>Best streak: {selectedTask.bestStreak}</Text>
+                        <Text>
+                            {t('progress.streak.best', {
+                                count: selectedTask.bestStreak,
+                            })}
+                        </Text>
                     </View>
                 </View>
             )}

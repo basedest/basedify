@@ -1,10 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { TouchableOpacity, Text } from 'react-native';
 import { cn } from '~/lib/utils';
 
 type HabitCardProps = {
     title: string;
-    description: string;
+    description?: string | null;
     isSelected: boolean;
     onPress: () => void;
 };
@@ -15,6 +16,8 @@ export function HabitCard({
     isSelected,
     onPress,
 }: HabitCardProps) {
+    const { t } = useTranslation();
+
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -28,16 +31,18 @@ export function HabitCard({
                     isSelected ? 'text-primary' : 'text-secondary-foreground',
                 )}
             >
-                {title}
+                {t(title)}
             </Text>
-            <Text
-                className={cn(
-                    'mt-1 font-light',
-                    isSelected ? 'text-primary' : 'text-muted-foreground',
-                )}
-            >
-                {description}
-            </Text>
+            {description && (
+                <Text
+                    className={cn(
+                        'mt-1 font-light',
+                        isSelected ? 'text-primary' : 'text-muted-foreground',
+                    )}
+                >
+                    {t(description)}
+                </Text>
+            )}
         </TouchableOpacity>
     );
 }

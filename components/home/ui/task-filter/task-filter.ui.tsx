@@ -2,15 +2,21 @@ import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { TaskFilterProps } from './task-filter.types';
 import { Text } from '~/components/ui/text';
 import { TaskProgressStatus } from '~/entities/task/task.types';
+import { useTranslation } from 'react-i18next';
 
 export const TaskFilter: React.FC<TaskFilterProps> = ({
     activeFilter,
     setActiveFilter,
 }) => {
+    const { t } = useTranslation();
+
     const tabs = [
-        TaskProgressStatus.Todo,
-        TaskProgressStatus.Done,
-        TaskProgressStatus.Skipped,
+        { value: TaskProgressStatus.Todo, label: t('taskFilter.status.todo') },
+        { value: TaskProgressStatus.Done, label: t('taskFilter.status.done') },
+        {
+            value: TaskProgressStatus.Skipped,
+            label: t('taskFilter.status.skipped'),
+        },
     ];
 
     return (
@@ -22,13 +28,13 @@ export const TaskFilter: React.FC<TaskFilterProps> = ({
             className="w-full rounded-lg"
         >
             <TabsList className="w-full flex-row">
-                {tabs.map((value) => (
+                {tabs.map(({ value, label }) => (
                     <TabsTrigger
                         className="flex-1 rounded-md"
                         key={value}
                         value={value}
                     >
-                        <Text>{value}</Text>
+                        <Text>{label}</Text>
                     </TabsTrigger>
                 ))}
             </TabsList>

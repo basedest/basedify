@@ -4,8 +4,10 @@ import { useGoodHabits } from '~/entities/task/task.hooks';
 import { useSurveyStore } from '~/entities/survey';
 import { SurveyLayout } from '~/components/survey/SurveyLayout';
 import { HabitCard } from '~/components/survey/HabitCard';
+import { useTranslation } from 'react-i18next';
 
 export default function GoodHabits() {
+    const { t } = useTranslation();
     const { goodHabits: chosenGoodHabits, setGoodHabits } = useSurveyStore();
     const [selectedHabits, setSelectedHabits] =
         useState<number[]>(chosenGoodHabits);
@@ -27,14 +29,14 @@ export default function GoodHabits() {
 
     return (
         <SurveyLayout
-            title="Step 1. Choose the good habits you want to acquire"
+            title={t('survey.goodHabits.stepTitle')}
             onNext={handleNextStep}
         >
             {goodHabits.map((habit) => (
                 <HabitCard
                     key={habit.id}
                     title={habit.name}
-                    description={habit.description!}
+                    description={habit.description}
                     isSelected={selectedHabits.includes(habit.id)}
                     onPress={() => toggleHabit(habit.id)}
                 />

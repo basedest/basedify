@@ -10,6 +10,7 @@ A React Native mobile application for habit tracking and personal development.
 -   Task filtering and day navigation
 -   SQLite database integration with Prisma
 -   Multi-platform support (iOS, Android)
+-   Internationalization (i18n) with support for English and Russian locales
 
 ## Tech Stack
 
@@ -20,6 +21,7 @@ A React Native mobile application for habit tracking and personal development.
 -   React Query for data fetching
 -   Zustand for state management
 -   Expo Router for navigation
+-   i18next for internationalization
 
 ## Getting Started
 
@@ -31,8 +33,20 @@ A React Native mobile application for habit tracking and personal development.
 
 ### Installation
 
-1. Clone the repository:
+1. Install dependencies:
 
 ```bash
-git clone <repository-url>
+npx expo install
+```
+
+2. Prebuild app (otherwise SQLite won't work):
+
+```bash
+npx expo prebuild --clean
+```
+
+3. Start the development server
+
+```bash
+npx expo start
 ```

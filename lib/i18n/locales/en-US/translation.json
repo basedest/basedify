@@ -161,6 +161,7 @@
         "editProfile": "Edit Profile",
         "changePassword": "Change Password",
         "program": "Program",
+        "resetProgress": "Reset Progress",
         "resetProgressDescription": "Start your program from day 1",
         "adjustProgramLength": "Adjust Program Length",
         "adjustProgramLengthDescription": "Change the duration of your program",

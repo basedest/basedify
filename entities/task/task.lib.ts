@@ -80,52 +80,6 @@ export async function getTasksWithProgressForDay(
     programId: number,
     day: number,
 ): Promise<TaskWithProgressAndOption[]> {
-    // Use transaction to ensure consistency
-    // return await db.$transaction(
-    //     async (tx) => {
-    //         const tasks = await tx.task.findMany({
-    //             where: {
-    //                 programId: programId,
-    //             },
-    //             include: {
-    //                 taskOption: true,
-    //             },
-    //         });
-
-    //         const tasksWithProgress = await Promise.all(
-    //             tasks.map(async (task) => {
-    //                 // Find or create progress for each task
-    //                 const progress = await tx.taskProgress.upsert({
-    //                     where: {
-    //                         progressId: {
-    //                             taskId: task.id,
-    //                             day: day,
-    //                         },
-    //                     },
-    //                     create: {
-    //                         taskId: task.id,
-    //                         day: day,
-    //                         status: TaskProgressStatus.Todo,
-    //                     },
-    //                     update: {}, // No updates if exists
-    //                 });
-
-    //                 return {
-    //                     task,
-    //                     taskOption: task.taskOption,
-    //                     currentTaskProgress: progress,
-    //                 };
-    //             }),
-    //         );
-
-    //         return tasksWithProgress;
-    //     },
-    //     {
-    //         timeout: 10000, // Increased timeout to 10 seconds
-    //         maxWait: 5000, // Maximum time to wait for transaction to start
-    //         isolationLevel: Prisma.TransactionIsolationLevel.Serializable, // Optimize isolation level
-    //     },
-    // );
     const tasks = await db.task.findMany({
         where: {
             programId: programId,

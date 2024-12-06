@@ -15,6 +15,8 @@ import {
     useUpdateTaskStreak,
 } from '~/entities/task/task.lib';
 import { useTranslation } from 'react-i18next';
+import { cn } from '~/lib/utils';
+import { useTheme } from '@react-navigation/native';
 
 type TaskItemProps = {
     task: TaskWithProgressAndOption;
@@ -42,6 +44,7 @@ const getLocalizedRepeatSchedule = (
 
 export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     const { t } = useTranslation();
+    const { dark } = useTheme();
     const taskProgress = task.currentTaskProgress;
     const { mutate: updateProgress } = useUpdateTaskProgress();
     const { mutate: updateStreak } = useUpdateTaskStreak();
@@ -104,7 +107,12 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     };
 
     return (
-        <Card className="mb-4 w-full rounded-lg bg-card pt-4">
+        <Card
+            className={cn(
+                'mb-4 w-full rounded-lg pt-4',
+                dark ? 'bg-zinc-900' : 'bg-white',
+            )}
+        >
             <CardTitle className="pl-4">{t(task.taskOption.name)}</CardTitle>
             {task.taskOption.description && (
                 <CardDescription className="pl-4">

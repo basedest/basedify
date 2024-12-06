@@ -6,6 +6,7 @@ import { useCurrentUser } from '~/entities/user';
 import { resetProgram } from './settings.lib';
 import { SettingGroup } from './ui/setting-group/setting-group.ui';
 import { useTranslation } from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Settings = () => {
     const { t } = useTranslation();
@@ -28,11 +29,12 @@ export const Settings = () => {
                     description={t('settings.darkModeDescription')}
                     isSwitch={true}
                     value={colorScheme === 'dark'}
-                    onValueChange={(isDark) =>
-                        isDark
-                            ? setColorScheme('dark')
-                            : setColorScheme('light')
-                    }
+                    onValueChange={(isDark) => {
+                        const theme = isDark ? 'dark' : 'light';
+                        setColorScheme(theme);
+
+                        AsyncStorage.setItem('theme', theme);
+                    }}
                 />
             </SettingGroup>
 

@@ -50,6 +50,7 @@ export const TaskProgressCalendar = ({
                 markedDates={markedDates}
                 minDate={startDate.format('YYYY-MM-DD')}
                 maxDate={endDate.format('YYYY-MM-DD')}
+                key={theme.colors.background}
             />
         </View>
     );

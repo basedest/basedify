@@ -200,5 +200,16 @@
         "home": "Home",
         "progress": "Progress",
         "settings": "Settings"
+    },
+    "welcomeScreen": {
+        "title": "Welcome to Basedify",
+        "quote": "\"The journey of a thousand miles begins with one step.\" - Lao Tzu",
+        "buttonText": "Get started"
+    },
+    "calendar": {
+        "legend": {
+            "completed": "Completed",
+            "skipped": "Skipped"
+        }
     }
 }

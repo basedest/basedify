@@ -115,7 +115,7 @@
     },
     "weekdayRange": {
         "single": "Каждое {day}",
-        "multiple": "Каждое {{days, list}}",
+        "multiple": "Каждые {{days, list}}",
         "everyday": "Каждый день"
     },
     "survey": {
@@ -200,5 +200,16 @@
         "home": "Главная",
         "progress": "Прогресс",
         "settings": "Настройки"
+    },
+    "welcomeScreen": {
+        "title": "Добро пожаловать в Basedify",
+        "quote": "\"Путешествие в тысячу миль начинается с одного шага.\" - Лао-цзы",
+        "buttonText": "Начать"
+    },
+    "calendar": {
+        "legend": {
+            "completed": "Выполнено",
+            "skipped": "Пропущено"
+        }
     }
 }

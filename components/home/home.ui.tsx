@@ -8,6 +8,10 @@ import { useProgramStore } from '~/entities/program/program.store';
 import { useTasksWithProgress } from '~/entities/task/task.lib';
 import { Text } from '~/components/ui/text';
 
+// TODO: add menu in top bar with action to go to the current day
+// TODO: disable buttons for passed days
+// TODO: auto skip passed days tasks
+// TODO: implement updated_at
 export const HomeScreen: React.FC = () => {
     const { currentDay: storedDay, program } = useProgramStore();
     const [currentDay, setCurrentDay] = useState<number>(storedDay);

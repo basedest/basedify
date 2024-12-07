@@ -1,7 +1,7 @@
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { Badge } from '~/components/ui/badge';
-import { useCallback, useEffect, useMemo, useReducer } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useProgramStore } from '~/entities/program/program.store';
 import { TaskWithRelations, useTasksQuery } from './progress.lib';
 import { TaskProgressCalendar } from './task-progress-calendar';
@@ -39,10 +39,7 @@ export const ProgressScreen = () => {
     const { program } = useProgramStore();
     const { data: tasks, isLoading } = useTasksQuery(program?.id);
 
-    const [selectedTaskId, setSelectedTaskId] = useReducer(
-        (_: number, newId: number) => newId,
-        0,
-    );
+    const [selectedTaskId, setSelectedTaskId] = useState<number>(0);
 
     const selectedTask = useMemo(
         () => tasks?.find((task) => task.id === selectedTaskId),

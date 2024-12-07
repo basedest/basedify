@@ -25,15 +25,11 @@ export const TaskFilter: React.FC<TaskFilterProps> = ({
             onValueChange={(value) =>
                 setActiveFilter(value as TaskProgressStatus)
             }
-            className="w-full rounded-lg"
+            className="w-full"
         >
             <TabsList className="w-full flex-row">
                 {tabs.map(({ value, label }) => (
-                    <TabsTrigger
-                        className="flex-1 rounded-md"
-                        key={value}
-                        value={value}
-                    >
+                    <TabsTrigger className="flex-1" key={value} value={value}>
                         <Text>{label}</Text>
                     </TabsTrigger>
                 ))}

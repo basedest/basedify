@@ -8,9 +8,9 @@ import { ThemedColors } from '~/lib/colors';
 import { TaskProgressStatus } from '~/entities/task/task.types';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
-import { logger } from '~/lib/utils/log';
 import { Text } from '~/components/ui/text';
 import { useTranslation } from 'react-i18next';
+import type { MarkedDates } from 'react-native-calendars/src/types';
 
 const Legend = ({ colors }: { colors: ThemedColors }) => {
     const { t } = useTranslation();
@@ -44,38 +44,35 @@ export const TaskProgressCalendar = ({
     const theme = useTheme();
     const colors = theme.colors as ThemedColors;
 
-    const startDate = dayjs(program?.startDate);
+    const startDate = dayjs(program!.startDate).startOf('day');
     const endDate = startDate.add(program!.totalDays, 'day');
 
     const markedDates = useMemo(() => {
-        const res = taskProgress.reduce(
-            (acc: { [key: string]: any }, progress) => {
-                const date = dayjs()
-                    .startOf('month') // Start from beginning of current month
-                    .add(progress.day - 1, 'day')
-                    .format('YYYY-MM-DD');
-                const color =
-                    progress.status === 'done' // Use string literal instead of enum
-                        ? colors.chart1
-                        : colors.chart2;
+        const res = taskProgress.reduce((acc: MarkedDates, progress) => {
+            const date = startDate
+                .add(progress.day - 1, 'day')
+                .format('YYYY-MM-DD');
+            const color =
+                progress.status === 'done' // Use string literal instead of enum
+                    ? colors.chart1
+                    : colors.chart2;
 
-                if (progress.status === TaskProgressStatus.Todo) {
-                    return acc;
-                }
-
-                acc[date] = {
-                    color,
-                    textColor: colors.background,
-                    startingDay: true,
-                    endingDay: true,
-                    selectedColor: color,
-                };
+            if (progress.status === TaskProgressStatus.Todo) {
                 return acc;
-            },
-            {},
-        );
+            }
+
+            acc[date] = {
+                color,
+                textColor: colors.background,
+                startingDay: true,
+                endingDay: true,
+                selectedColor: color,
+            };
+            return acc;
+        }, {});
         return res;
-    }, [taskProgress, colors]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [taskProgress, startDate]);
 
     return (
         <View>

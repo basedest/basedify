@@ -53,7 +53,7 @@ export const TaskProgressCalendar = ({
                 .add(progress.day - 1, 'day')
                 .format('YYYY-MM-DD');
             const color =
-                progress.status === 'done' // Use string literal instead of enum
+                progress.status === TaskProgressStatus.Done
                     ? colors.chart1
                     : colors.chart2;
 
